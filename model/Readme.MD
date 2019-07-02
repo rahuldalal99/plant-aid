@@ -7,7 +7,8 @@ temporarily stored at https://testsysadmin.000webhostapp.com/plant-ai/model-kera
 returns: JSON respose for predictions
 
 
-TODO: - find better storage solution or use git LFS
+TODO: 
+      - find better storage solution or use git LFS
 
 
 sample_request.py is a script to simulate php request
