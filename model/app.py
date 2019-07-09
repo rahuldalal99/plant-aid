@@ -14,10 +14,10 @@ from keras import backend as K
 import numpy as np
 from flask import send_from_directory,jsonify
 import io
-import urllib
+#import urllib
 import os
-from rq import Queue
-from worker import conn
+#from rq import Queue
+#from worker import conn
 from utils import loadmodel
 
 
