@@ -1,8 +1,6 @@
 app.py is API server
 
-keras-model-mn.h5 has size > 25 MB .: upload not possible
-
-temporarily stored at https://testsysadmin.000webhostapp.com/plant-ai/model-keras-mn.h5
+model alternative storage at https://testsysadmin.000webhostapp.com/plant-ai/model-keras-mn.h5
 
 returns: JSON respose for predictions
 
