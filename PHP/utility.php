@@ -9,9 +9,9 @@ function uploadFile($target_dir="uploads",$type){ //type = {'profile','plant'} r
 		case "profile": $fName=md5($_SESSION['email']);		
 				$fName=$fName.".".$extension;
 				break;
-		case "plant":	$fName=md5($_SESSION['email'].date('d-m-Y').date("h-i-s",time().$extension);
+		case "plant":	$fName=md5($_SESSION['email'].date('d-m-Y').date("h-i-s",time().$extension));
 				break;
-		case default: die("[!]Error in type");
+		default: die("[!]Error in type");
 	}
 	rename($fName,$target_dir."/".$fName);
 	return ($target_dir."/".$fName);
