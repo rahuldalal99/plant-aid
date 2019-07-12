@@ -24,22 +24,23 @@ if(isset($_FILES['fileToUpload'])){
 // [ Grape , Strawberry, Potato, Tomato ]
 // echo "<br>";
 // echo md5($_SESSION['email'].$_SESSION['DATE_NOW'].$_SESSION['TIME_NOW']).'.'.$_SESSION['EXT'];
-// $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$target_file=uploadFile('uploads','plant');
+$target_file = basename($_FILES["fileToUpload"]["name"]);
+$target_file_main=uploadFile('uploads','plant');
 
-if(isset($target_file)){
+if(isset($target_file) && isset($_FILES["fileToUpload"]["name"])){
 	$ch = curl_init();
-	$cfile = curl_file_create($target_file,'image/jpeg','testpic'); //replace esca.jpg with uploaded filename
+	$cfile = curl_file_create($target_file_main,'image/jpeg','testpic'); //replace esca.jpg with uploaded filename
 	$data=array("image"=>$cfile);
 	curl_setopt($ch, CURLOPT_URL, 'http://139.59.70.219:5000/predict');//ngrok is a tunnel to my machine
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 	$response = curl_exec($ch);
-
- 	echo("<div id =jsr>".$response."</div>"); 
-	echo "<script>
+ 	echo "<div id=rsp style='display:none;'>";echo $response;
+ 	//echo "<div id=jsr>";echo $response; echo "</div>"; 
+	//echo "<script>
 	//var jResp=".$response."
+	
 	//document.getElementById('jsr').innerHTML=jResp;
 	//jso=JSON.parse(jResp); </script>";
 	//REDIS procedure
