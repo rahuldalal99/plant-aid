@@ -1,4 +1,6 @@
 <?php
+
+$_SESSION['email']='tanay@gmail.com';//REPLACE HARDCODED EMAIL
 require('utility.php');
 
 echo "
@@ -17,31 +19,32 @@ echo "
 </html>
 
 ";
+if(isset($_FILES['fileToUpload'])){
 //TODO: implement select list for plant leaf name;
 // [ Grape , Strawberry, Potato, Tomato ]
-uploadFile('uploads','plant');
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+// echo "<br>";
+// echo md5($_SESSION['email'].$_SESSION['DATE_NOW'].$_SESSION['TIME_NOW']).'.'.$_SESSION['EXT'];
+// $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$target_file=uploadFile('uploads','plant');
+
 if(isset($target_file)){
 	$ch = curl_init();
 	$cfile = curl_file_create($target_file,'image/jpeg','testpic'); //replace esca.jpg with uploaded filename
 	$data=array("image"=>$cfile);
-	curl_setopt($ch, CURLOPT_URL, 'http://autumn.ai/predict');//ngrok is a tunnel to my machine
+	curl_setopt($ch, CURLOPT_URL, 'http://139.59.70.219:5000/predict');//ngrok is a tunnel to my machine
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 	$response = curl_exec($ch);
-	print("response");
-	echo("<div id =jso type=hidden>$response<div>");
-	echo("<script>	
-	jso=document.getElementById('jso');
-	if(jso!=null){
-		alert(jso.firstChild);
-		jso=JSON.parse(jso.firstChild.textContent);
-		alert(jso);
-	}
-</script>");
-	//REDIS procedure
-}
 
+ 	echo("<div id =jsr>".$response."</div>"); 
+	echo "<script>
+	//var jResp=".$response."
+	//document.getElementById('jsr').innerHTML=jResp;
+	//jso=JSON.parse(jResp); </script>";
+	//REDIS procedure
+
+}
 //'{ "Pepper,_Bell___Bacterial_Spot": 4.872653789789183e-06, "Pepper,_Bell___Healthy": 2.5014212923224477e-08, "Tomato___Early_Blight": 1.5270050823801284e-07, "Tomato___Tomato_Yellow_Leaf_Curl_Virus": 0.999994993209838}'
+}
 ?>
