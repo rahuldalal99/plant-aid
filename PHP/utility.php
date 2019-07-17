@@ -6,14 +6,13 @@ $_SESSION['email']='tanay@gmail.com';
 function uploadFile($target_dir="uploads",$type){ //type = {'profile','plant'} returns path to uploaded and moved file
 	$target_file = basename($_FILES["fileToUpload"]["name"]);
 	$extension=pathinfo($target_file)['extension'];
-	$_SESSION['EXT']=$extension;
 	switch($type){
 		case "profile": $fName=md5($_SESSION['email']);		
 				$fName=$fName.".".$extension;
 				break;
 		case "plant":	$dateNow=date('d-m-Y');
 		                $timeNow=date("h-i-s",time());
-		                $fName=md5($_SESSION['email'].$dateNow.$timeNow).'.'.$extension;
+		                $fName=md5($_SESSION['email'].$dateNow.$timeNow).'.png';
 				break;
 		default: die("[!]Error in type");
 	}
