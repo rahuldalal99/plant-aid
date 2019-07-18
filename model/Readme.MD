@@ -1,6 +1,9 @@
 TODO:
+
   -collect more data
+  
   -implement Faster RCNN for better model performance
+  
 
 app.py is API server
 
