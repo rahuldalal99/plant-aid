@@ -1,3 +1,7 @@
+TODO:
+  -collect more data
+  -implement Faster RCNN for better model performance
+
 app.py is API server
 
 model alternative storage at https://testsysadmin.000webhostapp.com/plant-ai/model-keras-mn.h5
