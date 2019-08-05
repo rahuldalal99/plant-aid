@@ -1,13 +1,13 @@
 <?php
 //Add Database information 
-$servername = "localhost";
+/*$servername = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
-$dbName = "Users";
+$dbName = "Users";*/
+$str = "host=localhost dbname=Users user=root ";
 
-$conn = mysqli_connect($servername, $dbUsername , $dbPassword, $dbName);
-
-if(!$conn)
-{
-    die("Connect failed: ".mysqli_connect_error());
+$conn = pg_connect($str);
+if(!$conn){
+	echo "Cannot connect: ". pg_last_error($conn);
 }
+?>
