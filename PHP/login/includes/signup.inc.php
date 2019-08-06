@@ -1,7 +1,7 @@
 <?php
     if(isset($_POST['signup-submit']))
     {
-        require 'dbh.inc.php'; //includes database handler file
+       require 'dbh.inc.php'; //includes database handler file
         
 
         //Fetch Information 
@@ -10,33 +10,34 @@
         $email = $_POST['email_id'];
         $password = $_POST['pwd'];
         $passwordRep = $_POST['pwd-repeat'];
+        
 
         /************ *Validate Form *******************/
         if(empty($username) || empty($email) || empty($password) || empty($passwordRep))
         {
             //Redirect user
-            header("Location: ../signup.php?error=emptyfields&name=".$username."&mail=".$email);
+            header("Location: localhost/login/signup.php?error=emptyfields&name=".$username."&mail=".$email);
             exit();
         }
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username))
         {
             
-            header("Location: ../signup.php?error=invalidmailuid");
+            header("Location: localhost/login/signup.php?error=invalidmailuid");
             exit();
         }
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
-            header("Location: ../signup.php?error=invalidmail&name=".$username);
+            header("Location: localhost/login/signup.php?error=invalidmail&name=".$username);
             exit();
         }
         else if(!preg_match("/^[a-zA-Z0-9]*$/", $username))
         {
-            header("Location: ../signup.php?error=invaliuid&mail=".$email);
+            header("Location: localhost/login/signup.php?error=invaliuid&mail=".$email);
             exit();
         }
         else if($password !== $passwordRep)
         {
-            header("Location: ../signup.php?error=passwordcheck&name=".$username."&mail=".$email);
+            header("Location: localhost/login/signup.php?error=passwordcheck&name=".$username."&mail=".$email);
             exit();
         }
         //If username is already taken
@@ -50,7 +51,7 @@
             //Prepare the preparec statement
             if(!pg_query($conn, $sql))
             {
-                header("Location: ../signup.php?error=sqlerror");
+                header("Location: localhost/login/signup.php?error=sqlerror");
                 exit();
             }
             else
@@ -67,42 +68,37 @@
                     exit();
                 }*/
                 //INSERT INTO DATABASE
-               // else
-                {
-                    /*$sql = "INSERT INTO users(email_id,name,passwd,)  VALUES('$username','$email', '$password')";
-                    $stmt = mysqli_stmt_init($conn);
-                    if(!mysqli_stmt_prepare($stmt, $sql))
+                
+                
+                    /*$sql = "INSERT INTO users(email_id,name,passwd,)  VALUES('$username', '$email','$password')";
+                    //$stmt = mysqli_stmt_init($conn);
+                    if(!pg_query($conn, $sql))
                     {
                         header("Location: ../signup.php?error=sqlerror");
                         exit();
                     }*/
-                    //else
-                    {
                         //HASH THE PASSWORD
                         $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-                        $sql = "INSERT INTO users(name,email_id,passwd)  VALUES('$username', '$email','$hashedPwd')";
-                        $res = pg_query($dbconn, $sql);
-                        if(!$res){
-                            echo pg_last_error($dbconn);
-                        }
-                        /*mysqli_stmt_bind_param($stmt, "sss",$username,$email,$hashedPwd);
-                        mysqli_stmt_execute($stmt);*/
+                        
+			$sql = "INSERT INTO users(email_id,name,passwd)  VALUES('$username', '$email','$hashedPwd')";
+			$res = pg_query($dbconn, $sql);
+  
+  	echo pg_last_error($dbconn);
+                       // mysqli_stmt_bind_param($stmt, "sss",$username,$email,$hashedPwd);
                         pg_query($conn,$sql) or die ("cannot insert into DB");
                         header("Location: http://localhost/upload.php");
-                        exit();
-                        
-                    }
+                        exit(); 
                     
-                }
+                
             }
         }
         /*mysqli_stmt_close($stmt);
         mysqli_close($conn);*/
-        
+      
 
     }
-    else
+    else//
     {
-        header("Location: ../signup.php");
+        header("Location: localhost/login/signup.php");
         exit();
     }
