@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['userid'])){
-	header("Location: http://139.59.70.219:420/login/index.php?error=kbye");
+	header("Location: http://167.71.227.193:420/login/index.php?error=kbye");
 }
 echo "welcome " . $_SESSION['userId'];
 $_SESSION['email']='tanay@gmail.com';//REPLACE HARDCODED EMAIL
@@ -35,7 +35,7 @@ if(isset($target_file) && isset($_FILES["fileToUpload"]["name"])){
 	$ch = curl_init();
 	$cfile = curl_file_create($target_file_main,'image/jpeg','testpic'); //replace esca.jpg with uploaded filename
 	$data=array("image"=>$cfile);
-	curl_setopt($ch, CURLOPT_URL, 'http://139.59.70.219:5000/predict');//ngrok is a tunnel to my machine
+	curl_setopt($ch, CURLOPT_URL, 'http://167.71.227.193:5000/predict');//ngrok is a tunnel to my machine
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
