@@ -1,5 +1,9 @@
 <?php
-
+session_start();
+if(!isset($_SESSION['userid'])){
+	header("Location: http://139.59.70.219:420/login/index.php?error=kbye");
+}
+echo "welcome " . $_SESSION['userId'];
 $_SESSION['email']='tanay@gmail.com';//REPLACE HARDCODED EMAIL
 require('utility.php');
 

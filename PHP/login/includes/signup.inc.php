@@ -16,28 +16,28 @@
         if(empty($username) || empty($email) || empty($password) || empty($passwordRep))
         {
             //Redirect user
-            header("Location: localhost/login/signup.php?error=emptyfields&name=".$username."&mail=".$email);
+            header("Location: http://139.59.70.219:420/login/signup.php?error=emptyfields&name=".$username."&mail=".$email);
             exit();
         }
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username))
         {
             
-            header("Location: localhost/login/signup.php?error=invalidmailuid");
+            header("Location: http://139.59.70.219:420/login/signup.php?error=invalidmailuid");
             exit();
         }
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
-            header("Location: localhost/login/signup.php?error=invalidmail&name=".$username);
+            header("Location: http://139.59.70.219:420/login/signup.php?error=invalidmail&name=".$username);
             exit();
         }
         else if(!preg_match("/^[a-zA-Z0-9]*$/", $username))
         {
-            header("Location: localhost/login/signup.php?error=invaliuid&mail=".$email);
+            header("http://139.59.70.219:420/login/signup.php?error=invaliuid&mail=".$email);
             exit();
         }
         else if($password !== $passwordRep)
         {
-            header("Location: localhost/login/signup.php?error=passwordcheck&name=".$username."&mail=".$email);
+            header("http://139.59.70.219:420/login/signup.php?error=passwordcheck&name=".$username."&mail=".$email);
             exit();
         }
         //If username is already taken
@@ -51,7 +51,7 @@
             //Prepare the preparec statement
             if(!pg_query($conn, $sql))
             {
-                header("Location: localhost/login/signup.php?error=sqlerror");
+                header("http://139.59.70.219:420/login/signup.php?error=sqlerror");
                 exit();
             }
             else
@@ -80,13 +80,13 @@
                         //HASH THE PASSWORD
                         $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
                         
-			$sql = "INSERT INTO users(email_id,name,passwd)  VALUES('$username', '$email','$hashedPwd')";
+			$sql = "INSERT INTO users(email_id,name,passwd)  VALUES('$email', '$username','$hashedPwd')";
 			$res = pg_query($dbconn, $sql);
   
   	echo pg_last_error($dbconn);
                        // mysqli_stmt_bind_param($stmt, "sss",$username,$email,$hashedPwd);
                         pg_query($conn,$sql) or die ("cannot insert into DB");
-                        header("Location: http://localhost/upload.php");
+                        header("Location: http://139.59.70.219:420/upload.php");
                         exit(); 
                     
                 
@@ -99,6 +99,7 @@
     }
     else//
     {
-        header("Location: localhost/login/signup.php");
+        header("http://139.59.70.219:420/login/signup.php");
         exit();
     }
+
