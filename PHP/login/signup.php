@@ -24,7 +24,7 @@
                         
                     }*/
                 ?>
-                <form action="http://139.59.70.219:420/login/includes/signup.inc.php" method="POST">
+                <form action="http://167.71.227.193:420/login/includes/signup.inc.php" method="POST">
                     <div class="form-group">
                         <label for="InputEmail1">Email address</label>
                         <input type="email" name="email_id" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
