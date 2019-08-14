@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-offset-3" align="center">
                 <h1>Welcome to MediVine</h1>
-                <form action="http://139.59.70.219:420/login/includes/login.inc.php" method="POST">
+                <form action="http://167.71.227.193:420/login/includes/login.inc.php" method="POST">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" name="email-id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -21,7 +21,7 @@
 		</form>
                 <h1>OR</h1>
                 <div class="col-md-6 col-offset-3" align="center">
-                    <form action="http://139.59.70.219:420/login/signup.php" method="POST">
+                    <form action="http://167.71.227.193:420/login/signup.php" method="POST">
                         <button type="submit" class="btn btn-primary">Sign UP</button>
                     </form>
                 </div> 
@@ -30,7 +30,7 @@
                       if(isset($_SESSION['userId']))
                       {
                         echo '<div class="col-md-6 col-offset-3" align="right">
-   	                   <form action="http://139.59.70.219:420/login/includes/logout.inc.php" method="POST">
+   	                   <form action="http://167.71.227.193:420/login/includes/logout.inc.php" method="POST">
                             <button type="submit" name="logout-submit" class="btn btn-primary">Log Out</button>
                         </form>
                         </div>'; 
