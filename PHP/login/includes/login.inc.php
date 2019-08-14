@@ -8,7 +8,7 @@
 
         if(empty($mailuid) || empty($password))
         {
-            header("Location: http://139.59.70.219:420/login/index.php?error=emptyfields");
+            header("Location: http://167.71.227.193:420/login/index.php?error=emptyfields");
             exit();
 
         }
@@ -19,7 +19,7 @@
             //$stmt = mysqli_stmt_init($conn);
             /*if(!mysqli_stmt_prepare($stmt, $sql))
             {
-                header("Location: http://139.59.70.219/login/index.php?error=sqlerror");
+                header("Location: http://167.71.227.193/login/index.php?error=sqlerror");
                 exit();
             }
             else*/
@@ -32,27 +32,27 @@
                     $pwdCheck = password_verify($password, $row['passwd']);
                     if($pwdCheck == false)
                     {
-                        header("Location: http://139.59.70.219:420/login/index.php?error=wrongpwd");
+                        header("Location: http://167.71.227.193:420/login/index.php?error=wrongpwd");
                         exit();
                     }
-                    //Lock the user in
+                    //Log the user in
                     else if($pwdCheck == true)
                     {
                        	session_start();
                         $_SESSION['userId'] = $row['name'];
 
-                        header("Location: http://139.59.70.219:420/upload.php?login=success");
+                        header("Location: http://167.71.227.193:420/upload.php?login=success");
                         exit();
 
                     }
                     else
                     {
-                        header("Location: http://139.59.70.219:420/login/index.php?error=wrongpwd");
+                        header("Location: http://167.71.227.193:420/login/index.php?error=wrongpwd");
                         exit();
                     }
                 }
                 else{
-                    header("Location: http://139.59.70.219:420/login/index.php?error=nouser");
+                    header("Location: http://167.71.227.193:420/login/index.php?error=nouser");
                     exit();
                 }
             }
@@ -61,7 +61,6 @@
     }
     else
     {
-        header("Location: http://139.59.70.219:420/login/index.php");
+        header("Location: http://167.71.227.193:420/login/index.php");
         exit();
     }
-
