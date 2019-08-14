@@ -40,8 +40,7 @@
             header("http://167.71.227.193:420/login/signup.php?error=passwordcheck&name=".$username."&mail=".$email);
             exit();
         }
-        //If username is already taken
-
+	//If username is already taken
         else
         {
             $sql = "SELECT name FROM users WHERE name='$username'"; // ? is a placeholder 
@@ -77,15 +76,23 @@
                         header("Location: ../signup.php?error=sqlerror");
                         exit();
                     }*/
-                        //HASH THE PASSWORD
+			
+			$q1= "SELECT email_id FROM users WHERE email_id='$email'";
+			$res = pg_query($dbconn,$q1);
+			$count = pg_num_rows($res);
+			if($count>0){
+				echo "Email ID already registered";
+				header("Location: http://167.71.227.193:420/login/signup.php?error=userexists");
+				exit();
+			}
+			//HASH THE PASSWORD
                         $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-                        
 			$sql = "INSERT INTO users(email_id,name,passwd)  VALUES('$email', '$username','$hashedPwd')";
-			$res = pg_query($dbconn, $sql);
+			$res = pg_query($dbconn, $sql) or die("Cannot insert into DB");
   
-  	echo pg_last_error($dbconn);
+  	//echo pg_last_error($dbconn);
                        // mysqli_stmt_bind_param($stmt, "sss",$username,$email,$hashedPwd);
-                        pg_query($dbconn,$sql) or die ("cannot insert into DB");
+                        //pg_query($dbconn,$sql) or die ("cannot insert into DB");
                         header("Location: http://167.71.227.193:420/upload.php");
                         exit(); 
                     

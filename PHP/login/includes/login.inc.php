@@ -1,4 +1,5 @@
 <?php
+    
     if(isset($_POST['log-in']))
     {
         require 'dbh.inc.php';
@@ -39,7 +40,7 @@
                     else if($pwdCheck == true)
                     {
                        	session_start();
-                        $_SESSION['userId'] = $row['name'];
+                        $_SESSION['userid'] = $row['name'];
 
                         header("Location: http://167.71.227.193:420/upload.php?login=success");
                         exit();

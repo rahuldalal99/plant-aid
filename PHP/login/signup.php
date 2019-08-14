@@ -44,7 +44,6 @@
 
                     <button type="submit" class="btn btn-primary" name="signup-submit">Sign Up</button>
 
-                
                 </form>
                 </div> 
 
