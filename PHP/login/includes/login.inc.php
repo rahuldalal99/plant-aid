@@ -26,7 +26,7 @@
             {
                 /*mysqli_stmt_bind_param($stmt, "s", $mailuid);
                 mysqli_stmt_execute($stmt);*/
-                $result = pg_query($conn,$sql);
+                $result = pg_query($dbconn,$sql);
                 if($row = pg_fetch_assoc($result))
                 {
                     $pwdCheck = password_verify($password, $row['passwd']);

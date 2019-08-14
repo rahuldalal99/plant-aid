@@ -3,14 +3,14 @@
     {
        require 'dbh.inc.php'; //includes database handler file
         
-
+	session_start();
         //Fetch Information 
         
         $username = $_POST['name'];
         $email = $_POST['email_id'];
         $password = $_POST['pwd'];
         $passwordRep = $_POST['pwd-repeat'];
-        
+        $_SESSION['userid']=$username; //added by TK 14-08 
 
         /************ *Validate Form *******************/
         if(empty($username) || empty($email) || empty($password) || empty($passwordRep))
@@ -49,7 +49,7 @@
 
             //$stmt = mysqli_stmt_init($conn);
             //Prepare the preparec statement
-            if(!pg_query($conn, $sql))
+            if(!pg_query($dbconn, $sql))
             {
                 header("http://167.71.227.193:420/login/signup.php?error=sqlerror");
                 exit();
@@ -85,7 +85,7 @@
   
   	echo pg_last_error($dbconn);
                        // mysqli_stmt_bind_param($stmt, "sss",$username,$email,$hashedPwd);
-                        pg_query($conn,$sql) or die ("cannot insert into DB");
+                        pg_query($dbconn,$sql) or die ("cannot insert into DB");
                         header("Location: http://167.71.227.193:420/upload.php");
                         exit(); 
                     

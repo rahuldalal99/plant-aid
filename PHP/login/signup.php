@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label for="UserName">User Name</label>
-                        <input type="name" name="name" class="form-control" id="Username" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="name" name="name" class="form-control" id="Username" placeholder="Enter Name">
                     </div>
                     <div class="form-group">
                         <label for="InputPassword1">Password</label>

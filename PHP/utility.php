@@ -16,7 +16,10 @@ function uploadFile($target_dir="uploads",$type){ //type = {'profile','plant'} r
 				break;
 		default: die("[!]Error in type");
 	}
-	move_uploaded_file($_FILES["fileToUpload"]["tmp_name"],$target_dir."/".$fName);
+	if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"],$target_dir."/".$fName)){
+		$fPath_=$target_dir.'/'.$fName;
+		echo "<img src=\"".$fPath_."\">";
+	}
 	$_SESSION['DATE_NOW']=$dateNow;
 	$_SESSION['TIME_NOW']=$timeNow;
 	return ($target_dir."/".$fName);

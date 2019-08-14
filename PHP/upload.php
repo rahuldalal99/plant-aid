@@ -3,7 +3,7 @@ session_start();
 if(!isset($_SESSION['userid'])){
 	header("Location: http://167.71.227.193:420/login/index.php?error=kbye");
 }
-echo "welcome " . $_SESSION['userId'];
+echo "welcome " . $_SESSION['userid'];
 $_SESSION['email']='tanay@gmail.com';//REPLACE HARDCODED EMAIL
 require('utility.php');
 
@@ -12,7 +12,8 @@ echo "
 <!DOCTYPE html>
 <html>
 <body>
-
+<div id=image-div>
+</div>
 <form action=\"upload.php\" method=\"post\" enctype=\"multipart/form-data\">
     Select image to upload:
     <input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\">
