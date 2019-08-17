@@ -13,7 +13,7 @@ if(!isset($_SESSION['userid'])){
 	exit();
 }
 echo "welcome " . $_SESSION['userid'];
-$_SESSION['email']=$_POST['email-id'];//from login.php or signup.php
+//$_SESSION['email']=$_POST['email_id'];//from login.php or signup.php
 
 
 require('utility.php');
@@ -105,9 +105,11 @@ if(isset($_FILES['fileToUpload'])){
 							}
 							echo $pred;
 							//Problem is occuring because $dn is not in required format .
-							$_SESSION['DATE_NOW'] = date('Y-m-d G:i:s');
-							$dn= $_SESSION['DATE_NOW'];
-							$tn = $_SESSION['TIME_NOW'];
+							$dn = date('d-m-Y');
+							$email=$_SESSION['email'];
+							$tn = date('h-i-s');
+							$fPath=$_SESSION['fPath'];
+							print_r($_SESSION);
 							$sql ="insert into user_images values('$email','$fPath','$pred','$dn', '$tn')";
 							$res = pg_query($dbconn,$sql);	#NEED HELP
 							if(!$res){

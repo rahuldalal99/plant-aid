@@ -6,7 +6,7 @@
         
         $mailuid = $_POST['email-id'];
         $password = $_POST['pwd'];
-
+	
         if(empty($mailuid) || empty($password))
         {
             header("Location: http://167.71.227.193:420/login/login.php?error=emptyfields");
@@ -39,7 +39,7 @@
                     {
                        	session_start();
                         $_SESSION['userid'] = $row['name'];
-
+			$_SESSION['email'] = $row['email_id'];
                         header("Location: http://167.71.227.193:420/login/login.php?login=success");
                         exit();
 

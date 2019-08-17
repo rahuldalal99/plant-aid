@@ -8,7 +8,8 @@
         
         $username = $_POST['name'];
         $email = $_POST['email_id'];
-        $password = $_POST['pwd'];
+	$_SESSION['email']=$email;       
+	$password = $_POST['pwd'];
         $passwordRep = $_POST['pwd-repeat'];
         //$_SESSION['userid']=$username; //added by TK 14-08 Commented by Rahul 17-08
 
