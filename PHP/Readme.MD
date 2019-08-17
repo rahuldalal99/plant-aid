@@ -19,4 +19,5 @@ uploadFile(target_dir,type)
 TODO: - Implement proper UI with select list
 
       - integrate with remaining code
-      
+    
+      - implement viewing previous predictions ( md5(email+date+time))      
