@@ -88,7 +88,11 @@
 			//HASH THE PASSWORD
                         $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
 			$sql = "INSERT INTO users(email_id,name,passwd)  VALUES('$email', '$username','$hashedPwd')";
-			$res = pg_query($dbconn, $sql) or die("Cannot insert into DB");
+			$res = pg_query($dbconn, $sql);
+			if(!$res){
+				echo "Cannot insert into DB". pg_last_error($res);
+				exit();
+			}
   
   	//echo pg_last_error($dbconn);
                        // mysqli_stmt_bind_param($stmt, "sss",$username,$email,$hashedPwd);

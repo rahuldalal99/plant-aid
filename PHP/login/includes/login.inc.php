@@ -9,7 +9,7 @@
 
         if(empty($mailuid) || empty($password))
         {
-            header("Location: http://167.71.227.193:420/login/index.php?error=emptyfields");
+            header("Location: http://167.71.227.193:420/login/login.php?error=emptyfields");
             exit();
 
         }
@@ -33,7 +33,7 @@
                     $pwdCheck = password_verify($password, $row['passwd']);
                     if($pwdCheck == false)
                     {
-                        header("Location: http://167.71.227.193:420/login/index.php?error=wrongpwd");
+                        header("Location: http://167.71.227.193:420/login/login.php?error=wrongpwd");
                         exit();
                     }
                     //Log the user in
@@ -42,18 +42,18 @@
                        	session_start();
                         $_SESSION['userid'] = $row['name'];
 
-                        header("Location: http://167.71.227.193:420/upload.php?login=success");
+                        header("Location: http://167.71.227.193:420/login.php?login=success");
                         exit();
 
                     }
                     else
                     {
-                        header("Location: http://167.71.227.193:420/login/index.php?error=wrongpwd");
+                        header("Location: http://167.71.227.193:420/login/login.php?error=wrongpwd");
                         exit();
                     }
                 }
                 else{
-                    header("Location: http://167.71.227.193:420/login/index.php?error=nouser");
+                    header("Location: http://167.71.227.193:420/login/login.php?error=nouser");
                     exit();
                 }
             }
@@ -62,6 +62,6 @@
     }
     else
     {
-        header("Location: http://167.71.227.193:420/login/index.php");
+        header("Location: http://167.71.227.193:420/login/login.php");
         exit();
     }

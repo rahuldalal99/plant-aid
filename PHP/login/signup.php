@@ -11,19 +11,28 @@
                     {
                         if($_GET['error'] == "emptyfields")
                         {
-                            echo "Please fill all fields";
+                            echo "<h6 class='error'>Please fill all fields</h6>";
                         }
                         else if($_GET['error'] == "invaliduidmail")
                         {
-                            echo "Invalid mail";
-                        }
+                            echo "<h6 class='error'>Invalid mail</h6>";
+			}
+			if($_GET['error'] == "invaliduid")
+			{
+				echo "<h6 class='error'>Invalid Username</h6>";
+
+			}
+			if($_GET['error'] == "passwordcheck")
+			{
+				echo "<h6 class='error'>Passwords do not match</h6>";
+			}
+			
+			if($_GET['error'] == "userexists")
+			{
+				echo "<h6 class='error'>Email already taken</h6>";
+			}	
                     }
-                    /*else if($_GET['signup'] == "success")
-                    {
-                        echo "Sign up successful";
-                        
-                    }*/
-                ?>
+		                    ?>
                 <form action="http://167.71.227.193:420/login/includes/signup.inc.php" method="POST">
                     <div class="form-group">
                         <label for="InputEmail1">Email address</label>
@@ -45,14 +54,14 @@
                     <button type="submit" class="btn btn-primary" name="signup-submit">Sign Up</button>
 
                 </form>
-                </div> 
+                </div>
 
             </div>
-               
+
         </div>
 </div>
 </main>
 
 <?php
-    require "footer.php";
+		        require "footer.php";
 ?>
