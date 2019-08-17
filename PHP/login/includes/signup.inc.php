@@ -10,7 +10,7 @@
         $email = $_POST['email_id'];
         $password = $_POST['pwd'];
         $passwordRep = $_POST['pwd-repeat'];
-        $_SESSION['userid']=$username; //added by TK 14-08 
+        //$_SESSION['userid']=$username; //added by TK 14-08 Commented by Rahul 17-08
 
         /************ *Validate Form *******************/
         if(empty($username) || empty($email) || empty($password) || empty($passwordRep))
@@ -32,25 +32,21 @@
         }
         else if(!preg_match("/^[a-zA-Z0-9]*$/", $username))
         {
-            header("http://167.71.227.193:420/login/signup.php?error=invaliuid&mail=".$email);
+            header("Location: http://167.71.227.193:420/login/signup.php?error=invaliuid&mail=".$email);
             exit();
         }
-        else if($password !== $passwordRep)
+        else if($password != $passwordRep)
         {
-            header("http://167.71.227.193:420/login/signup.php?error=passwordcheck&name=".$username."&mail=".$email);
+            header("Location: http://167.71.227.193:420/login/signup.php?error=passwordcheck&name=".$username."&mail=".$email);
             exit();
         }
 	//If username is already taken
         else
         {
-            $sql = "SELECT name FROM users WHERE name='$username'"; // ? is a placeholder 
-            //Passing values as Prepared Statements for safety purposes 
-
-            //$stmt = mysqli_stmt_init($conn);
-            //Prepare the preparec statement
+            $sql = "SELECT name FROM users WHERE name='$username'"; // Why are we using this if we're considering name and not username, if username then okay -Rahul 17-08
             if(!pg_query($dbconn, $sql))
             {
-                header("http://167.71.227.193:420/login/signup.php?error=sqlerror");
+                header("Location: http://167.71.227.193:420/login/signup.php?error=sqlerror");
                 exit();
             }
             else
@@ -110,6 +106,6 @@
     }
     else//
     {
-        header("http://167.71.227.193:420/login/signup.php");
+        header("Location: http://167.71.227.193:420/login/signup.php");
         exit();
     }

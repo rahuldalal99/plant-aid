@@ -6,7 +6,13 @@ require "header.php";
   <div class="container" style="margin-top: 100px">
         <div class="row justify-content-center">
             <div class="col-md-6 col-offset-3" align="center">
-            <?php
+<?php
+		if(isset($_GET['login'])){//If login=success from login.inc.php   Rahul 17-08 9:31pm
+			if($_GET['login']== "success"){//Is it correct to set $_SESSION['userid'] as email_id here?? Rahul 17-08 9:33pm
+				header("Location: http://167.71.227.193:420/upload.php");
+				exit();
+			}
+		}
                       if(isset($_SESSION['userid']))
                       {
                         echo '<div class="col-md-6 col-offset-3" align="right">

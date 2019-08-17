@@ -7,8 +7,10 @@
 session_start();
 require 'login/header.php'; //NAV bar
 require 'login/includes/dbh.inc.php';
+echo "<link rel='stylesheet'  href='login/styles.css'>;";
 if(!isset($_SESSION['userid'])){
-	        header("Location: http://167.71.227.193:420/login/index.php?error=kbye");
+	header("Location: http://167.71.227.193:420/login/index.php?error=kbye");
+	exit();
 }
 echo "welcome " . $_SESSION['userid'];
 $_SESSION['email']=$_POST['email-id'];//from login.php or signup.php

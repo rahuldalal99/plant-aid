@@ -78,7 +78,7 @@ ALTER TABLE public.users OWNER TO root;
 -- Data for Name: user_images; Type: TABLE DATA; Schema: public; Owner: root
 --
 
-COPY user_images (email_id, image_path, prediction, date_upload) FROM stdin;
+--COPY user_images (email_id, image_path, prediction, date_upload) FROM stdin;
 \.
 
 
@@ -86,7 +86,7 @@ COPY user_images (email_id, image_path, prediction, date_upload) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: root
 --
 
-COPY users (email_id, name, passwd, pr_image_path) FROM stdin;
+--COPY users (email_id, name, passwd, pr_image_path) FROM stdin;
 \.
 
 

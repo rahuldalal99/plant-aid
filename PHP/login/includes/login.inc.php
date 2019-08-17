@@ -20,13 +20,11 @@
             //$stmt = mysqli_stmt_init($conn);
             /*if(!mysqli_stmt_prepare($stmt, $sql))
             {
-                header("Location: http://167.71.227.193/login/index.php?error=sqlerror");
-                exit();
-            }
-            else*/
+                header("Location: http://167.71.227.
+            */
             {
-                /*mysqli_stmt_bind_param($stmt, "s", $mailuid);
-                mysqli_stmt_execute($stmt);*/
+                
+                
                 $result = pg_query($dbconn,$sql);
                 if($row = pg_fetch_assoc($result))
                 {
@@ -42,7 +40,7 @@
                        	session_start();
                         $_SESSION['userid'] = $row['name'];
 
-                        header("Location: http://167.71.227.193:420/login.php?login=success");
+                        header("Location: http://167.71.227.193:420/login/login.php?login=success");
                         exit();
 
                     }
