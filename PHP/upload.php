@@ -37,6 +37,7 @@ echo"
 echo"
     <input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\">
     <input type=\"submit\" value=\"Upload Image\" name=\"submit\">
+    
 </form>
    <script>
         i=0;
