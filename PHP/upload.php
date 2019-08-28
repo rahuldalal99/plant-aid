@@ -7,14 +7,17 @@
 session_start();
 require 'login/header.php'; //NAV bar
 require 'login/includes/dbh.inc.php';
-echo "<link rel='stylesheet'  href='login/styles.css'>;";
+echo "<link rel='stylesheet'  href='login/styles.css'>";
 if(!isset($_SESSION['userid'])){
-	header("Location: http://167.71.227.193:420/login/index.php?error=kbye");
+	header("Location: http://medivine.me:420/index.php?");
 	exit();
 }
-echo "welcome " . $_SESSION['userid'];
+echo "<div class=\"parallax1\">";
+echo "<div class=\"row justify-content-center\" style=\" font-size:xx-large \">";
+echo "Welcome " . $_SESSION['userid'];
 //$_SESSION['email']=$_POST['email_id'];//from login.php or signup.php
-
+echo "</div>";//end div for row justify-content-center
+require('changePred.php');
 
 require('utility.php');
 $dis_arr = json_decode(file_get_contents('array.txt'), true);
@@ -24,17 +27,15 @@ echo "
 <!DOCTYPE html>
 <html>
 <body>
-<div id=image-div>
+<div id=image-div style='max-height:300px; max-width:300px;' >
 </div>
 <form action=\"upload.php\" method=\"post\" enctype=\"multipart/form-data\">
-    Select image to upload:";
- /*   <select>";
+    Select image to upload:
+   <select name=\"plant\">";
 for($i=0;$i<count($dis_arr);$i++){
 	echo "<option>".$dis_arr[$i]."</option>";
 }
-echo"
-    </select><br>*/
-echo"
+   echo "</select><br>
     <input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\">
     <input type=\"submit\" value=\"Upload Image\" name=\"submit\">
     
@@ -67,7 +68,8 @@ echo"
 		
 		document.getElementById('result').innerText=d;
        }
-        </script>
+	</script>
+</div><!--parallax-->
 </body>
 </html>
 
@@ -80,8 +82,9 @@ if(isset($_FILES['fileToUpload'])){
 	 *     */
 	$target_file = basename($_FILES["fileToUpload"]["name"]);
 	$target_file_main=uploadFile('uploads','plant');
-
 	
+
+	$opt=$_POST['plant'];	
 
 
 
@@ -89,15 +92,16 @@ if(isset($_FILES['fileToUpload'])){
 		        $ch = curl_init();
 			        $cfile = curl_file_create($target_file_main,'image/jpeg','testpic'); //replace esca.jpg with uploaded filename
 			        $data=array("image"=>$cfile);
-				        curl_setopt($ch, CURLOPT_URL, 'http://167.71.227.193:5000/predict');//ngrok is a tunnel to my machine
+				        curl_setopt($ch, CURLOPT_URL, 'http://medivine.me:5000/predict');//ngrok is a tunnel to my machine
 				        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 					        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 					        $response = curl_exec($ch);
 						        echo "<div id=rsp style='display:none;'>";echo $response;
-						        include('response.php');
+						        //include('response.php');
 						//	str_replace("[","{",$response);
 						//	str_replace("]","}",$response);	
+							
 							$jresp=json_decode($response,true);
 							arsort($jresp);	
 							foreach($jresp as $key=>$value){
@@ -111,8 +115,13 @@ if(isset($_FILES['fileToUpload'])){
 							$tn = date('h-i-s');
 							$fPath=$_SESSION['fPath'];
 							print_r($_SESSION);
+							if($opt!="I don't know"){
+								$pred=getPred($response,$opt);
+							}	
 							$sql ="insert into user_images values('$email','$fPath','$pred','$dn', '$tn')";
-							$res = pg_query($dbconn,$sql);	#NEED HELP
+							
+							$res = pg_query($dbconn,$sql);				
+							echo "</div>Prediction: $pred";
 							if(!$res){
 								echo "Cannot insert image into DB " . pg_last_error();
 							}					

@@ -7,7 +7,8 @@ def send():
 	try:
 		mail(request.args.get('to'),request.args.get('msg'))
 		return "success"
-	except:
-		return "failed"
+	except Exception as e:
+            return "failed:"+e
 if __name__=="__main__":
-    app.run(host="0.0.0.0",port=5000)
+    app.run(host="0.0.0.0",port=5001
+            )

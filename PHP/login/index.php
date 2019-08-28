@@ -1,5 +1,8 @@
 <?php
-    require "header.php";
+	session_start();
+	//print_r($_SESSION);
+	require "header.php";
+	
 ?>
 <main>
 <!-- We can add this part in header.php as just log in button and redirect the user to login page  container style=margin-top:100px--> 
@@ -23,20 +26,20 @@
 	<div class="row justify-content-center">
 		
 		 <div class="col-md-10 col-offset-1" align="center">
-			<div class="jumbotron"> <h1> paragraph  </h1> </div>
+		 <div style="background-color:#fff;" class="jumbotron"> <?php echo readfile('info.txt'); ?> </div>
 		</div>
 	</div><!--row 2-->
 <?php
 	if(isset($_SESSION['userid'])){
 	echo"	<div class=\"row justify-content-center\"> 
 		<div class=\"col-md-2 col-offset-3\">
-		<form action=\"http://167.71.227.193:420/previous.php\"> 
-			<button class=\"btn btn-info\" formaction=\"http://167.71.227.193:420/previous.php\">Previous Uploads</button>
+		<form action=\"http://medivine.me:420/previous.php\"> 
+			<button class=\"btn btn-info\" >Previous Uploads</button>
 		</form>
 		</div><!--Previous -->
 		<div class=\"col-md-2 col-offset-2\">
-		<form action=\"http://167.71.227.193:420/upload.php\">
-			<button class=\"btn btn-info\" formaction='http://167.71.227.193:420/upload.php'> Upload Image </button>
+		<form action=\"http://medivine.me:420/upload.php\">
+			<button class=\"btn btn-info\"> Upload Image </button>
 		</form>	
 		</div>
 		";

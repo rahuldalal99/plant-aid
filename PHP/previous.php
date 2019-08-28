@@ -2,6 +2,12 @@
 	//session_start();
 	require('login/header.php');
 //	echo "<link rel=\"stylesheet\" href=\"login/styles.css\">";
+        //require('utility.php');
+	if(!isset($_SESSION['userid']))
+	{
+		header("Location: http://medivine.me:420/index.php?");
+		exit();
+	}
 	require('utility.php');
 	$result=getFiles($_SESSION['email'],$dbconn);
 	$files=$result[2];
@@ -19,5 +25,6 @@
 			$i++;
 		}
 	}
+	
 ?>
 

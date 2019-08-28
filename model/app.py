@@ -14,7 +14,7 @@ import io
 import os
 import tensorflow_hub as hub
 import tensorflow as tf
-
+from mailer import *
 #from rq import Queue
 #from worker import conmodel
 
@@ -25,17 +25,17 @@ app = Flask(__name__)
 # classes=pickle.load(open('model/output_labels.pkl','rb'))
 classes__=['Apple___Apple_Scab', 'Apple___Black_Rot', 'Apple___Cedar_Apple_Rust', 'Apple___Healthy', 'Blueberry___Healthy', 'Cherry_(Including_Sour)___Powdery_Mildew', 'Cherry_(Including_Sour)___Healthy', 'Corn_(Maize)___Cercospora_Leaf_Spot Gray_Leaf_Spot', 'Corn_(Maize)___Common_Rust_', 'Corn_(Maize)___Northern_Leaf_Blight', 'Corn_(Maize)___Healthy', 'Grape___Black_Rot', 'Grape___Esca_(Black_Measles)', 'Grape___Leaf_Blight_(Isariopsis_Leaf_Spot)', 'Grape___Healthy', 'Orange___Haunglongbing_(Citrus_Greening)', 'Peach___Bacterial_Spot', 'Peach___Healthy', 'Pepper,_Bell___Bacterial_Spot', 'Pepper,_Bell___Healthy', 'Potato___Early_Blight', 'Potato___Late_Blight', 'Potato___Healthy', 'Raspberry___Healthy', 'Soybean___Healthy', 'Squash___Powdery_Mildew', 'Strawberry___Leaf_Scorch', 'Strawberry___Healthy', 'Tomato___Bacterial_Spot', 'Tomato___Early_Blight', 'Tomato___Late_Blight', 'Tomato___Leaf_Mold', 'Tomato___Septoria_Leaf_Spot', 'Tomato___Spider_Mites Two-Spotted_Spider_Mite', 'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_Mosaic_Virus', 'Tomato___Healthy']
 
-classes=['Corn_(Maize)___Cercospora_Leaf_Spot Gray_Leaf_Spot',
-       'Corn_(Maize)___Common_Rust_',
-              'Corn_(Maize)___Northern_Leaf_Blight', 'Grape___Black_Rot',
-                     'Grape___Esca_(Black_Measles)',
-                            'Grape___Leaf_Blight_(Isariopsis_Leaf_Spot)',
-                                   'Potato___Early_Blight', 'Potato___Late_Blight',
-                                          'Tomato___Bacterial_Spot', 'Tomato___Early_Blight',
-                                                 'Tomato___Late_Blight', 'Tomato___Leaf_Mold',
-                                                        'Tomato___Septoria_Leaf_Spot',
-                                                               'Tomato___Spider_Mites Two-Spotted_Spider_Mite',
-                                                                      'Tomato___Target_Spot']
+classes=['_Corn_(Maize)___Cercospora_Leaf_Spot Gray_Leaf_Spot',
+       '_Corn_(Maize)___Common_Rust_',
+              '_Corn_(Maize)___Northern_Leaf_Blight', '_Grape___Black_Rot',
+                     '_Grape___Esca_(Black_Measles)',
+                            '_Grape___Leaf_Blight_(Isariopsis_Leaf_Spot)',
+                                   '_Potato___Early_Blight', '_Potato___Late_Blight',
+                                          '_Tomato___Bacterial_Spot', '_Tomato___Early_Blight',
+                                                 '_Tomato___Late_Blight', '_Tomato___Leaf_Mold',
+                                                        '_Tomato___Septoria_Leaf_Spot',
+                                                               '_Tomato___Spider_Mites Two-Spotted_Spider_Mite',
+                                                                      '_Tomato___Target_Spot']
 
 global model
 def loadmodel():
@@ -73,6 +73,15 @@ def prediction():
         except Exception as e:
                 print(e)
                 return (jsonify({'error':'Did not detect','info':str(e)}))
+
+@app.route('/send',methods=["GET"])
+def send():
+    try:
+        mail(request.args.get('to'),request.args.get('msg'))
+        return "success"
+    except Exception as e:
+        return str(e)
+
 @app.route('/',methods=["GET","POST"])
 def home():
         return("home")

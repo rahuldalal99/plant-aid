@@ -30,18 +30,18 @@ nav a:hover{
 	max-width: 1080px;
 	text-align: center;
 	color: #000;
-	/*font-size: 25px; */
+	font-size: 15px;
 
 }
 
 .container1 span.border{
 	background-color: #f9f9f9;
 	color: #fff;
-	padding: 25px;
+	padding: 15px;
 
 }
 
-.parallax{
+.parallax{/*parallax for index*/
 	background: url('../images/backgroundimg.jpg') ;
 	background-size: cover;
 	background-attachment: fixed;
@@ -49,3 +49,13 @@ nav a:hover{
 	height:700px;
 	/*width:100% ;*/
 }
+
+.parallax1{/*Parallax for upload*/
+	background: url('../images/esca.png');
+	background-size: cover;
+	background-attachment: fixed;
+	max-width: 100%;
+	height: 800px;
+	color: #f9f9f9;
+}
+

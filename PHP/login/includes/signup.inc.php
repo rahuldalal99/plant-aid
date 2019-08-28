@@ -107,6 +107,6 @@
     }
     else//
     {
-        header("Location: http://167.71.227.193:420/login/signup.php");
+        header("Location: http://167.71.227.193:420/index.php");
         exit();
     }

@@ -2,7 +2,7 @@
 	session_start();
 	require "header.php";
 	if(isset($_SESSION['userid'])){//User is logged in
-		header ("Location: http://167.71.227.193:420/login/index.php");//Redirect logged in user to upload
+		header ("Location: http://167.71.227.193:420/index.php");//Redirect logged in user to upload
 	}
 	else{
 echo "
