@@ -102,18 +102,43 @@ if(isset($_FILES['fileToUpload'])){
 							if($opt!="Unknown"){
 								$pred=getPred($response,$opt);
 								$_SESSION['disease']=$pred;
+								echo "</div><a href='cure.php'>
+									<div style='color:black;'; >Prediction:".$pred;
+							}else{
+								$p1 = explode("_",$pred);
+								echo "</div><a href='cure.php'> 
+									<div style='color:black;'; >Prediction:";
+								$tv=0;
+								$plant="";
+								$pred="";	
+								foreach($p1 as $i){
+								//	echo $i . " ";
+									if($tv>0){
+										echo $i . " ";
+										
+									}
+									if($tv==1){
+										$plant=$i;
+									}
+									if($tv>1){
+
+										$pred.=$i;
+									}
+									$tv+=1;
+								}
+								$_SESSION['plant']=$plant;
+								$_SESSION['disease']=$pred;
 							}	
 							$sql ="insert into user_images values('$email','$fPath','$pred','$dn', '$tn')";
 							
 							$res = pg_query($dbconn,$sql);
-							$p1 = explode("_",$pred);				
+						/*	$p1 = explode("_",$pred);				
 							echo "</div>
 								<a href='cure.php'> <div style='color:black;'; >Prediction:";
-							//print_r($p1;)
 							foreach($p1 as $i){
 								echo $i . " ";
 							}
-							
+						 */	
 							echo	"</div></a><!--Jumbotron div end--> </div><!--Column div end--> </div> <!--Row div end--> 
 								</div> 
 								</body>

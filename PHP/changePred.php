@@ -4,6 +4,7 @@ $opt='grape';
 //getPred($json,$opt);
 function getPred($json,$opt){               
 	$opt=strtolower($opt);
+	$flag=false;
 	$classes_actual=array('Cercospora Leaf Spot','Common Rust','Blight', 'Black Rot','Esca','Blight','Blight', 'Blight','Bacterial Spot', 'Blight','Blight', 'Mold','Septoria Spot','Spider Mites','Target Spot');
 	$json_t=json_decode($json,true);
 		//$json_t=($json);
@@ -11,26 +12,37 @@ function getPred($json,$opt){
                 $disAll=array_keys($json_t);
 	//	print_r($disAll);          
 		$dis=array();
-		if($opt=="Unknown"){ $dis=$disAll; }
+		if($opt=="Unknown"){ $dis=$disAll; $flag=true; }
 		else{
 			foreach( $disAll as $d){
 //				echo $d.'?'.$opt;
 				if(strpos(strtolower($d),$opt)==true){
                 			array_push($dis,$d);
-                		}
+					$flag=true;
+				}
 			}
 		}
-//		print_r($dis);
-                $max=$json_t[$dis[0]];
-                $d=$dis[0];
-                for($i=0;$i<count($dis);$i++){
+		if(!$flag) return "Unknown";
+		else {
+		//print_r($dis);
+		
+		$max=$json_t[$dis[0]];
+		
+		$d=$dis[0];
+		
+		for($i=0;$i<count($dis);$i++){
                         if($max<$json_t[$dis[$i]]){
                         $max=$json_t[$dis[$i]];
                         $d=$dis[$i];
                         }
 		}
-		$pred_idx=(int)($d[0].$d[1]);
-		return $classes_actual[$pred_idx];
+		try{
+			$pred_idx=(int)($d[0].$d[1]);
+			return $classes_actual[$pred_idx];
+		}catch(Exception $exception) {
+			return "Unknown";
+		}
+		}
 }
 
 ?>
