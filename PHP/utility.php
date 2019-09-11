@@ -18,7 +18,10 @@ function uploadFile($target_dir="uploads",$type){ //type = {'profile','plant'} r
 	}
 	if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"],$target_dir."/".$fName)){
 		$fPath_=$target_dir.'/'.$fName;
-		echo "<img style='max-height:300px;max-width:300px;' src=\"".$fPath_."\">";
+		echo "<div class='row justify-content-center'>";
+		echo "<img style='max-height:300px;max-width:300px;' src=\"".$fPath_."\"> 
+			</div> <!-- ROW END  -->
+			";
 		$_SESSION['fPath']=$fPath_;	
 	}
 	$_SESSION['DATE_NOW']=$dateNow;

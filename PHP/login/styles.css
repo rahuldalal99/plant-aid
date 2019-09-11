@@ -1,6 +1,61 @@
 /* Add a black background color to the top navigation */
+body{
+	font-family:Palatino Linotype, Arial, Helvetica, sans-serif;	
+}
+
+#font
+{
+	font-family: Palatino Linotype;
+}
+
+.box1{
+//	border: 5px green solid;
+	//border-width:3ax;
+	padding-top: 30px;
+	margin-top: 30px;
+	float:left;
+	width:70px;
+	padding:0 30px;
+	box-sizing: border-box;
+}
+
+.box2{
+	float: right;
+	width:30%;
+	padding:10px;
+	box-sizing: border-box;
+}
+
+
+
+.transparent_btn {
+		display: inline-block;
+		padding: 10px 14px;
+		color: #FFF;
+		border: 1px solid #FFF;
+		text-decoration: none;
+		font-size: 14px;
+		line-height: 120%;
+		background-color: rgba(255,255,255, 0);
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		-webkit-transition: background-color 300ms ease;
+		-moz-transition: background-color 300ms ease;
+		transition: background-color 300ms ease;
+		cursor: pointer;
+}
+
+.transparent_btn:hover {
+		background-color: rgba(255,255,255, 0.3);
+		color: #FFF;
+		}
+
+
 header {
-	  background-color: #333;
+	background-color: #333;
+	//  background-color: rgba(255,255,25,5.0);
+	  
 	    overflow: hidden;
     }
 /* Style the links inside the navigation bar */
@@ -11,6 +66,11 @@ nav a{
 	      padding: 14px 16px;
 	      text-decoration: none;
 	      font-size: 15px;
+}
+
+.logo
+{
+	float: left;	
 }
 
 /* Change the color of links on hover */

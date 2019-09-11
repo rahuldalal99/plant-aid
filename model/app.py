@@ -23,19 +23,22 @@ export_path="tmp/saved_models/1566318387"
 app = Flask(__name__)
 
 # classes=pickle.load(open('model/output_labels.pkl','rb'))
-classes__=['Apple___Apple_Scab', 'Apple___Black_Rot', 'Apple___Cedar_Apple_Rust', 'Apple___Healthy', 'Blueberry___Healthy', 'Cherry_(Including_Sour)___Powdery_Mildew', 'Cherry_(Including_Sour)___Healthy', 'Corn_(Maize)___Cercospora_Leaf_Spot Gray_Leaf_Spot', 'Corn_(Maize)___Common_Rust_', 'Corn_(Maize)___Northern_Leaf_Blight', 'Corn_(Maize)___Healthy', 'Grape___Black_Rot', 'Grape___Esca_(Black_Measles)', 'Grape___Leaf_Blight_(Isariopsis_Leaf_Spot)', 'Grape___Healthy', 'Orange___Haunglongbing_(Citrus_Greening)', 'Peach___Bacterial_Spot', 'Peach___Healthy', 'Pepper,_Bell___Bacterial_Spot', 'Pepper,_Bell___Healthy', 'Potato___Early_Blight', 'Potato___Late_Blight', 'Potato___Healthy', 'Raspberry___Healthy', 'Soybean___Healthy', 'Squash___Powdery_Mildew', 'Strawberry___Leaf_Scorch', 'Strawberry___Healthy', 'Tomato___Bacterial_Spot', 'Tomato___Early_Blight', 'Tomato___Late_Blight', 'Tomato___Leaf_Mold', 'Tomato___Septoria_Leaf_Spot', 'Tomato___Spider_Mites Two-Spotted_Spider_Mite', 'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_Mosaic_Virus', 'Tomato___Healthy']
+#classes__=['Apple___Apple_Scab', 'Apple___Black_Rot', 'Apple___Cedar_Apple_Rust', 'Apple___Healthy', 'Blueberry___Healthy', 'Cherry_(Including_Sour)___Powdery_Mildew', 'Cherry_(Including_Sour)___Healthy', 'Corn_(Maize)___Cercospora_Leaf_Spot Gray_Leaf_Spot', 'Corn_(Maize)___Common_Rust_', 'Corn_(Maize)___Northern_Leaf_Blight', 'Corn_(Maize)___Healthy', 'Grape___Black_Rot', 'Grape___Esca_(Black_Measles)', 'Grape___Leaf_Blight_(Isariopsis_Leaf_Spot)', 'Grape___Healthy', 'Orange___Haunglongbing_(Citrus_Greening)', 'Peach___Bacterial_Spot', 'Peach___Healthy', 'Pepper,_Bell___Bacterial_Spot', 'Pepper,_Bell___Healthy', 'Potato___Early_Blight', 'Potato___Late_Blight', 'Potato___Healthy', 'Raspberry___Healthy', 'Soybean___Healthy', 'Squash___Powdery_Mildew', 'Strawberry___Leaf_Scorch', 'Strawberry___Healthy', 'Tomato___Bacterial_Spot', 'Tomato___Early_Blight', 'Tomato___Late_Blight', 'Tomato___Leaf_Mold', 'Tomato___Septoria_Leaf_Spot', 'Tomato___Spider_Mites Two-Spotted_Spider_Mite', 'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_Mosaic_Virus', 'Tomato___Healthy']
 
-classes=['_Corn_(Maize)___Cercospora_Leaf_Spot Gray_Leaf_Spot',
-       '_Corn_(Maize)___Common_Rust_',
-              '_Corn_(Maize)___Northern_Leaf_Blight', '_Grape___Black_Rot',
-                     '_Grape___Esca_(Black_Measles)',
-                            '_Grape___Leaf_Blight_(Isariopsis_Leaf_Spot)',
-                                   '_Potato___Early_Blight', '_Potato___Late_Blight',
-                                          '_Tomato___Bacterial_Spot', '_Tomato___Early_Blight',
-                                                 '_Tomato___Late_Blight', '_Tomato___Leaf_Mold',
-                                                        '_Tomato___Septoria_Leaf_Spot',
-                                                               '_Tomato___Spider_Mites Two-Spotted_Spider_Mite',
-                                                                      '_Tomato___Target_Spot']
+classes=['00_Corn_(Maize)___Cercospora_Leaf_Spot Gray_Leaf_Spot',
+       '01_Corn_(Maize)___Common_Rust_',
+              '02_Corn_(Maize)___Northern_Leaf_Blight', '03_Grape___Black_Rot',
+                     '04_Grape___Esca_(Black_Measles)',
+                            '05_Grape___Leaf_Blight_(Isariopsis_Leaf_Spot)',
+                                   '06_Potato___Early_Blight', '07_Potato___Late_Blight',
+                                          '08_Tomato___Bacterial_Spot', '09_Tomato___Early_Blight',
+                                                 '10_Tomato___Late_Blight', '11_Tomato___Leaf_Mold',
+                                                        '12_Tomato___Septoria_Leaf_Spot',
+                                                               '13_Tomato___Spider_Mites Two-Spotted_Spider_Mite',
+                                                                      '14_Tomato___Target_Spot']
+
+
+classes_actual=['Cercospora Leaf Spot','Common Rust','Blight', 'Black Rot','Esca','Blight','Blight', 'Blight','Bacterial Spot', 'Blight','Blight', 'Mold','Septoria Spot','Spider Mites','Target Spot']
 
 global model
 def loadmodel():

@@ -2,7 +2,7 @@
 	session_start();
 	require "header.php";
 	if(isset($_SESSION['userid'])){//User is logged in
-		header ("Location: http://167.71.227.193:420/index.php");//Redirect logged in user to upload
+		header ("Location: http://medivine.me:420/index.php");//Redirect logged in user to upload
 	}
 	else{
 echo "
@@ -10,7 +10,7 @@ echo "
 <div class=\"container\" style=\"margin-top: 100px\">
         <div class=\"row justify-content-center\">
             <div class=\"col-md-6 col-offset-3\" align=\"center\">
-                <h1>Sign Up</h1>";//End of echo
+                <h2>Sign Up</h2>";//End of echo
                     if(isset($_GET['error']))
                     {
                         if($_GET['error'] == "emptyfields")
@@ -37,7 +37,7 @@ echo "
 			}	
 		    }
 		    echo "
-                <form action=\"http://167.71.227.193:420/login/includes/signup.inc.php\" method=\"POST\">
+                <form action=\"http://medivine.me:420/login/includes/signup.inc.php\" method=\"POST\">
                     <div class=\"form-group\">
                         <label for=\"InputEmail1\">Email address</label>
                         <input type=\"email\" name=\"email_id\" class=\"form-control\" id=\"InputEmail\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">
@@ -55,7 +55,7 @@ echo "
                         <input type=\"password\" name=\"pwd-repeat\" class=\"form-control\" id=\"exampleInputPassword2\" placeholder=\"Repeat Password\">
                     </div>
 
-                    <button type=\"submit\" class=\"btn btn-primary\" name=\"signup-submit\">Sign Up</button>
+                    <button type=\"submit\" class=\"btn btn-dark\" name=\"signup-submit\">Sign Up</button>
 
                 </form>
                 </div>

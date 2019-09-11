@@ -14,11 +14,11 @@
 	$dates=$result[0];
 	$preds=$result[1];
 	$i=0;
-	echo "<table><tr><th>IMG</th><th>DATE</th><th>PRED</th></tr>";
+	echo "<table><tr><th style='padding:20px;'>IMG</th><th style='padding:20px;'>DATE</th><th style='padding:20px;'>PREDICTION</th></tr>";
 	foreach($files as $file){
 		if(!empty($preds[$i])){
-		
-		echo "<tr><td><img style=\"max-width:150px; max-height:150px;\" src='$file'></td><td>".$dates[$i]."</td><td>".$preds[$i]."</td></tr>";
+		$p1 = explode("_",$preds[$i]);	
+		echo "<tr><td style='padding:20px;'><img style=\"max-width:150px; max-height:150px;\" src='$file'></td><td style='padding:20px;'>".$dates[$i]."</td><td style='padding:20px;'>".$preds[$i]."</td></tr>";
 		$i++;
 		}
 		else{

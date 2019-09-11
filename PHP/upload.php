@@ -9,10 +9,10 @@ require 'login/header.php'; //NAV bar
 require 'login/includes/dbh.inc.php';
 echo "<link rel='stylesheet'  href='login/styles.css'>";
 if(!isset($_SESSION['userid'])){
-	header("Location: http://medivine.me:420/index.php?");
+	header("Location: http://medivine.me:420/index.php?error=notsignedin");
 	exit();
 }
-echo "<div class=\"parallax1\">";
+echo "<div class='container'>";
 echo "<div class=\"row justify-content-center\" style=\" font-size:xx-large \">";
 echo "Welcome " . $_SESSION['userid'];
 //$_SESSION['email']=$_POST['email_id'];//from login.php or signup.php
@@ -22,6 +22,9 @@ require('changePred.php');
 require('utility.php');
 $dis_arr = json_decode(file_get_contents('array.txt'), true);
 
+$classes_actual=array('Cercospora Leaf Spot','Common Rust','Blight', 'Black Rot','Esca','Blight','Blight', 'Blight','Bacterial Spot', 'Blight','Blight', 'Mold','Septoria Spot','Spider Mites','Target Spot');
+
+
 echo "
 
 <!DOCTYPE html>
@@ -29,49 +32,30 @@ echo "
 <body>
 <div id=image-div style='max-height:300px; max-width:300px;' >
 </div>
-<form action=\"upload.php\" method=\"post\" enctype=\"multipart/form-data\">
-    Select image to upload:
-   <select name=\"plant\">";
-for($i=0;$i<count($dis_arr);$i++){
-	echo "<option>".$dis_arr[$i]."</option>";
-}
-   echo "</select><br>
-    <input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\">
-    <input type=\"submit\" value=\"Upload Image\" name=\"submit\">
-    
+<form action='upload.php'  method='post' enctype='multipart/form-data'>
+ <div class='row justify-content-center'>
+  	<div class='col-md-6 col-lg-6 col-xs-3'>
+    		Select image to upload:
+   		<select name=\"plant\">";
+			for($i=0;$i<count($dis_arr);$i++){
+			echo "<option class='btn primary'>".$dis_arr[$i]."</option>";
+			}			
+echo "</select></div> <!--COL END-->
+	<br></div> <!--ROW END-->
+	<br> <br>
+	<div class='row content-justify-center'>
+		<div class='col-md-6 text-center'>
+    <input type=\"file\" class='btn btn-outline-secondary' name=\"fileToUpload\" id=\"fileToUpload\" >
+<!--	<input type='button' value='browse' onclick='document.getElementById(\"fileToUpload\").click()'> -->
+		 </div> <!--div col-->
+		<div class='col-md-6 text-center'>
+    <input type=\"submit\" class='btn btn-outline-secondary'  value=\"Upload Image\" name=\"submit\">
+	</div> 
+	<!--div column-->
+
+ </div> <!--ROW END-->
+    <!--Removed 1 extra div here -->
 </form>
-   <script>
-        i=0;
-        function getPred(){               
-                var elem=document.getElementById('rsp').innerText;
-                var json=JSON.parse(elem);
-                disAll=Object.keys(json);
-                dis=[];
-		var opt_n=document.getElementsByTagName('select')[0].selectedIndex;
-		var opt=document.getElementsByTagName('select')[0][opt_n].value;
-		if(opt==\"I don't know\"){ dis=disAll; }
-		else{
-		for(d in disAll){
-                	if(disAll[d].toLowerCase().includes(opt)){
-                		dis.push(disAll[d]);
-                	}
-		}
-		}
-                max=json[dis[0]];
-                d=dis[0];
-                for(i=0;i<dis.length;i++){
-                        if(max<json[dis[i]]){
-                        max=json[dis[i]]
-                        d=dis[i];
-                        }
-		}
-		
-		document.getElementById('result').innerText=d;
-       }
-	</script>
-</div><!--parallax-->
-</body>
-</html>
 
 ";
 if(isset($_FILES['fileToUpload'])){
@@ -85,7 +69,7 @@ if(isset($_FILES['fileToUpload'])){
 	
 
 	$opt=$_POST['plant'];	
-
+	$_SESSION['plant']=$opt;
 
 
 	if(isset($target_file) && isset($_FILES["fileToUpload"]["name"])){
@@ -95,9 +79,9 @@ if(isset($_FILES['fileToUpload'])){
 				        curl_setopt($ch, CURLOPT_URL, 'http://medivine.me:5000/predict');//ngrok is a tunnel to my machine
 				        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 					        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
+						echo "<div class=' jumbotron row justify-content-center'>";
 					        $response = curl_exec($ch);
-						        echo "<div id=rsp style='display:none;'>";echo $response;
+						        echo "<div id=rsp' style=display:none; >";echo $response;
 						        //include('response.php');
 						//	str_replace("[","{",$response);
 						//	str_replace("]","}",$response);	
@@ -114,14 +98,26 @@ if(isset($_FILES['fileToUpload'])){
 							$email=$_SESSION['email'];
 							$tn = date('h-i-s');
 							$fPath=$_SESSION['fPath'];
-							print_r($_SESSION);
-							if($opt!="I don't know"){
+							//print_r($_SESSION);
+							if($opt!="Unknown"){
 								$pred=getPred($response,$opt);
+								$_SESSION['disease']=$pred;
 							}	
 							$sql ="insert into user_images values('$email','$fPath','$pred','$dn', '$tn')";
 							
-							$res = pg_query($dbconn,$sql);				
-							echo "</div>Prediction: $pred";
+							$res = pg_query($dbconn,$sql);
+							$p1 = explode("_",$pred);				
+							echo "</div>
+								<a href='cure.php'> <div style='color:black;'; >Prediction:";
+							//print_r($p1;)
+							foreach($p1 as $i){
+								echo $i . " ";
+							}
+							
+							echo	"</div></a><!--Jumbotron div end--> </div><!--Column div end--> </div> <!--Row div end--> 
+								</div> 
+								</body>
+								</html> ";//End echo
 							if(!$res){
 								echo "Cannot insert image into DB " . pg_last_error();
 							}					

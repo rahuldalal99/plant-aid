@@ -46,9 +46,10 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE public.disease (
-    dname character varying(100) NOT NULL,
-    cure character varying(100),
-    cause character varying(100)
+    disease_id integer NOT NULL,
+    disease_name character varying(50),
+    disease_symptoms text,
+    disease_causes text
 );
 
 
@@ -59,9 +60,10 @@ ALTER TABLE public.disease OWNER TO postgres;
 --
 
 CREATE TABLE public.plant (
-    pname character varying(100) NOT NULL,
-    crop_price integer,
-    popularity integer
+    plant_id integer NOT NULL,
+    plant_name character varying(50),
+    plant_sc_name character varying(50),
+    wiki character varying(100)
 );
 
 
@@ -72,10 +74,9 @@ ALTER TABLE public.plant OWNER TO postgres;
 --
 
 CREATE TABLE public.plant_disease (
-    pname character varying(100),
-    dname character varying(100),
-    cure character varying(100),
-    cause character varying(100)
+    plant_id integer,
+    disease_id integer,
+    cure text
 );
 
 
@@ -115,7 +116,7 @@ ALTER TABLE public.users OWNER TO postgres;
 --
 
 ALTER TABLE ONLY public.disease
-    ADD CONSTRAINT disease_pkey PRIMARY KEY (dname);
+    ADD CONSTRAINT disease_pkey PRIMARY KEY (disease_id);
 
 
 --
@@ -123,7 +124,7 @@ ALTER TABLE ONLY public.disease
 --
 
 ALTER TABLE ONLY public.plant
-    ADD CONSTRAINT plant_pkey PRIMARY KEY (pname);
+    ADD CONSTRAINT plant_pkey PRIMARY KEY (plant_id);
 
 
 --
@@ -135,19 +136,19 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: plant_disease p_d_name_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: plant_disease plant_disease_disease_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.plant_disease
-    ADD CONSTRAINT p_d_name_fkey FOREIGN KEY (pname) REFERENCES public.plant(pname) ON DELETE CASCADE;
+    ADD CONSTRAINT plant_disease_disease_id_fkey FOREIGN KEY (disease_id) REFERENCES public.disease(disease_id) ON UPDATE SET NULL ON DELETE CASCADE;
 
 
 --
--- Name: plant_disease p_d_name_fkey1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: plant_disease plant_disease_plant_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.plant_disease
-    ADD CONSTRAINT p_d_name_fkey1 FOREIGN KEY (dname) REFERENCES public.disease(dname) ON DELETE CASCADE;
+    ADD CONSTRAINT plant_disease_plant_id_fkey FOREIGN KEY (plant_id) REFERENCES public.plant(plant_id) ON UPDATE SET NULL ON DELETE CASCADE;
 
 
 --
