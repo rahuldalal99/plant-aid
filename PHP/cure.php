@@ -1,5 +1,11 @@
 <?php
-require 'login/header.php';
+	
+	require 'login/header.php';
+if(!isset($_SESSION['userid'])){
+	        header("Location: http://medivine.me:420/index.php?error=notsignedin");
+		        exit();
+}
+	//require 'login/header.php';
 session_start();
 	require 'login/includes/dbh.inc.php';
 	$disease=$_SESSION['disease'];
