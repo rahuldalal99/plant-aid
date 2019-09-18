@@ -46,7 +46,7 @@
 		<!-- Main Body -->
 			<div class="container">
 				<div class="row justify-content-center">
-					<h1 id="font">Medivine.ai</h1>
+					<h2 id="font">Medivine.ai</h2>
 				</div>
 				<div class="row justify-content-center">
 					<h6><i>Pocket plant disease prediction</i></h6>

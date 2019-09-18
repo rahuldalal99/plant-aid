@@ -5,12 +5,20 @@
 //TODO initialise $_SESSION['email'] wherever $_SESSION['userid'] is initialised 
 //require
 session_start();
+//ini_set('session.cache_limiter','public');
+//session_cache_limiter(false);
 require 'login/header.php'; //NAV bar
 require 'login/includes/dbh.inc.php';
 echo "<link rel='stylesheet'  href='login/styles.css'>";
 if(!isset($_SESSION['userid'])){
 	header("Location: http://medivine.me:420/index.php?error=notsignedin");
 	exit();
+}
+if(isset($_GET['error'])){
+	if($_GET['error']=="notimg"){
+		echo "<h4 class='error'>  Please upload a png or jpeg image</h4>";
+		$_GET['error']="";
+	}
 }
 echo "<div class='container'>";
 echo "<div class=\"row justify-content-center\" style=\" font-size:xx-large \">";

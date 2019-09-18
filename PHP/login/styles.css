@@ -5,12 +5,14 @@ body{
 
 #font
 {
-	font-family: Palatino Linotype;
+	font-family: Arial;
+	opacity:0.75;
+	padding-top:20px;
 }
 
 .box1{
 //	border: 5px green solid;
-	//border-width:3ax;
+	/*border-width:3ax;*/
 	padding-top: 30px;
 	margin-top: 30px;
 	float:left;

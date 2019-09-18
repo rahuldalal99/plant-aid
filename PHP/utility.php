@@ -27,7 +27,15 @@ function uploadFile($target_dir="uploads",$type){ //type = {'profile','plant'} r
 	$_SESSION['DATE_NOW']=$dateNow;
 	$_SESSION['TIME_NOW']=$timeNow;
 	//$_SESSION['fPath']=$fPath;
+	$ffullpath=$target_dir."/".$fName;
+	$ftype=mime_content_type();
+	//echo $ffullpath;
+	$a=mime_content_type($ffullpath);
+	if($a!="image/png" && $a!="image/jpeg" && $a!="image/jpg"){
+		header("Location:http://medivine.me:420/upload.php?error=notimg");
+	}
 	return ($target_dir."/".$fName);
+
 }
 function getFiles($email,$dbconn){
 	$sql="select * from user_images where email_id='".$email."'";

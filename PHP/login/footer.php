@@ -1,4 +1,10 @@
 <footer>
+	<div class="container">
+		<div class="row justify-content-center">
+	
+		<p style=opacity:0.75;> &copy; Copyright Medvine.ai </p>
+		</div>
+	</div>
 </footer>
 
 
