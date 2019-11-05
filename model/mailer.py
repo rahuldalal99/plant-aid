@@ -2,16 +2,20 @@ from __future__ import print_function
 import pickle
 import base64
 from  email.mime.text import *
+from email.mime.image import *
+from email.mime.multipart import MIMEMultipart
 import os.path
+import mimetypes
 import json
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+import sys
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly','https://www.googleapis.com/auth/gmail.compose','https://www.googleapis.com/auth/gmail.send']
 
-def create_message(sender, to, subject, message_text):
+def create_message(sender, to, subject,message_text,img):
   """Create a message for an email.
 
   Args:
@@ -23,10 +27,22 @@ def create_message(sender, to, subject, message_text):
   Returns:
     An object containing a base64url encoded email object.
   """
-  message = MIMEText(message_text)
+  message=MIMEMultipart()
+  msgt = MIMEText(message_text)
+  message.attach(msgt)
+  print("send to",to)
   message['to'] = to
   message['from'] = sender
   message['subject'] = subject
+  #message['body'] = body
+  content_type, encoding = mimetypes.guess_type(img)
+  main_type, sub_type = content_type.split('/', 1)
+  fp=open(img,'rb')
+  msg = MIMEImage(fp.read(), _subtype=sub_type)
+  fp.close()
+  filename=os.path.basename(img)
+  msg.add_header('Content-Disposition', 'attachment', filename=filename)
+  message.attach(msg)
   return {'raw': base64.urlsafe_b64encode(message.as_string().encode('utf-8'))}
 
 def send_message(service, user_id, message):
@@ -53,7 +69,7 @@ def send_message(service, user_id, message):
   except Exception as error:
     print ('An error occurred: %s'% error)
 
-def mail(to="cuisineplanner@gmail.com",msg="User is online"):
+def mail(to="cuisineplanner@gmail.com",msg="Support Request",body='"For user USER_TEST, predicted disease is DIS_PRED\n Please find attached email below',img='tcurl.jpg'):
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
@@ -79,8 +95,13 @@ def mail(to="cuisineplanner@gmail.com",msg="User is online"):
     service = build('gmail', 'v1', credentials=creds)
 
     # Call the Gmail API
-    message=create_message('medivine.ai@gmail.com',to,msg,'body')
+    message=create_message('medivine.ai@gmail.com',to,msg,body,img)
     print(send_message(service,'me',message))
 
 if __name__ == '__main__':
-    mail()
+    try:
+        to=sys.argv[1]
+        mail(to=to)
+    except:
+        print("default")
+        mail()

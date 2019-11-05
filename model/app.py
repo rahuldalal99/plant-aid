@@ -80,7 +80,9 @@ def prediction():
 @app.route('/send',methods=["GET"])
 def send():
     try:
-        mail(request.args.get('to'),request.args.get('msg'))
+        img=request.args.post('img')
+
+        mail(request.args.post('to'),request.args.post('msg'),img)
         return "success"
     except Exception as e:
         return str(e)
