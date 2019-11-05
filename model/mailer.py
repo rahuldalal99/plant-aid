@@ -69,10 +69,11 @@ def send_message(service, user_id, message):
   except Exception as error:
     print ('An error occurred: %s'% error)
 
-def mail(to="cuisineplanner@gmail.com",msg="Support Request",body='"For user USER_TEST, predicted disease is DIS_PRED\n Please find attached email below',img='tcurl.jpg'):
+def mail(to="cuisineplanner@gmail.com",msg="Support Request",img='tcurl.jpg',user='USER_DEFAULT',disease='DISEASE_DEFAULT'):
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
+    body='For user '+user+', predicted disease is' +disease+'\n Please find attached email below'
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first

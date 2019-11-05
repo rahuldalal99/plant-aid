@@ -77,13 +77,14 @@ def prediction():
                 print(e)
                 return (jsonify({'error':'Did not detect','info':str(e)}))
 
-@app.route('/send',methods=["GET"])
+@app.route('/send',methods=["GET","POST"])
 def send():
     try:
-        img=request.args.post('img')
-
-        mail(request.args.post('to'),request.args.post('msg'),img)
-        return "success"
+        img=request.form['img']
+        user=request.form['user']
+        dis=request.form['disease']
+        mail(to=request.form['to'],img=img,disease=dis,user=user)
+        return "{'status':'200'}"
     except Exception as e:
         return str(e)
 
