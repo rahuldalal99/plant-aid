@@ -1,3 +1,17 @@
+<b>Email endpoint:</b>
+
+Call POST on /send
+
+parameters:
+- 'to': 'email of recipient'
+- 'user': 'user for which mail is sent'
+- 'disease': 'predicted disease'
+- 'img': 'path of predicted image'
+
+example:
+
+<code>curl -X POST "http://139.59.60.5:6000/send" -d "to=tanaykarve@gmail.com&user=tanay&disease=Tomato Curl Virus&img=tcurl.jpg"</code>
+
 TODO:
 
   -collect more data
@@ -11,6 +25,6 @@ model alternative storage at https://testsysadmin.000webhostapp.com/plant-ai/mod
 
 returns: JSON respose for predictions
 
-hosted @ 139.59.70.219
+hosted @ medivine.me
 
 sample_request.py is a script to simulate php request
