@@ -1,0 +1,5 @@
+plant_id,plant_name,plant_sc_name,wikepedia
+1,Corn,Zea mays,https://en.wikipedia.org/wiki/Maize
+2,Grape,Vitis vinifera,https://en.wikipedia.org/wiki/Grape
+3,Potato,Solanum tuberosum,https://en.wikipedia.org/wiki/Potato
+4,Tomato,Solanum lycopersicum,https://en.wikipedia.org/wiki/Tomato
