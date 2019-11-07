@@ -1,13 +1,20 @@
 from flask import Flask,render_template, request, make_response, jsonify,session,redirect,url_for,g
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 from werkzeug.exceptions import default_exceptions, HTTPException
 import os
+from pymongo import MongoClient
+
+
+
+mongo = MongoClient()
+db = mongo.medivine
+users=db.users
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24) #secret key for sessions
 
-app.config['UPLOADED_FILES_DEST'] = '/c/Users/mihir/Downloads/flask_app/uploads'
+app.config['UPLOADED_FILES_DEST'] = '/c/Users/Rahul/Downloads/flask_app/uploads'
 
 @app.route("/")
 def index():
@@ -20,24 +27,41 @@ def login():
         if request.method == 'POST':
             session.pop('user', None)
             session['user'] = request.form['email_id'] #save email in session
-            email_id = request.form.get("email_id")
-            passwd = request.form.get("passwd")
-            return redirect(url_for('upload')) # redirect to upload after login
+            email = request.form.get("email_id")
+            pwd = request.form.get("passwd")
+            try:
+                log_user = users.find_one({'email_id': email})
+                if hash(pwd) == log_user['passwd']:
+                    session['user'] = log_user['name']
+                    return redirect(url_for('upload')) # redirect to upload after login
+                else :
+                    return redirect(url_for('login'))
+            except:
+                print("user doesn't exist")
+                return render_template("login.html")
+           
         return render_template("login.html")
     return redirect(url_for('index'))
 
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
+    user_rec ={}
     if not session.get('user'):   # if user is logged in redirect to index.html
         if request.method == 'POST':
+            session.pop('user', None)
+            session['user'] = request.form["email_id"]
             email_id = request.form.get("email_id")
             passwd = request.form.get("passwd")
             name = request.form.get("name")
+            user_rec['email_id'] = email_id
+            user_rec['passwd'] = hash(passwd)
+            user_rec['name'] = name
+            users.insert_one(user_rec)
+            session['user'] = user_rec['name']
             return redirect(url_for('upload'))
         return render_template("signup.html")
     return redirect(url_for('index'))
-
 
 
 @app.route("/upload", methods=["GET", "POST"])
@@ -60,6 +84,9 @@ def upload():
     return render_template("upload.html")
 
 @app.route('/logout')
-def dropsession():
+def logout():
     session.pop('user', None)
-    return 'Logged out'
+    return render_template('index.html')
+
+if __name__ == "__main__":
+    app.run(debug=True)
