@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row justify-content-center">
+		 <div class="col-md-6 col-offset-3" align="center">
+			<h1>Sign Up</h1>	
+			<form method="POST">
+					<div class="container">
+		    				<div class="form-group">
+		        				<label for="exampleInputEmail1">Email address</label>
+		            			<input type="email" name="email_id" class="form-control" id="email_id" aria-describedby="emailHelp" placeholder="Enter email">
+		             		</div>
+		             		<div class="form-group">
+		                    		<label for="Name">Name</label>
+		                    		<input type="text"  name="name" class="form-control" id="name" placeholder="Password">
+		            		</div>
+		             		<div class="form-group">
+		                    		<label for="exampleInputPassword1">Password</label>
+		                    		<input type="password"  name="passwd" class="form-control" id="passwd" placeholder="Password">
+		            		</div>
+		            <button type="submit" name="sign-in" class="btn btn-dark">Sign up</button>
+			</form>
+		</div>
+	</form>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
