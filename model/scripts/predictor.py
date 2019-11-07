@@ -58,11 +58,11 @@ def prediction(t,h):
     SVM_clf.fit(X,Y)
     preds.append(SVM_clf.predict([[t,h]]))
 
-    print(preds[0:7])
+    #print(preds[0:7])
     #finding mode
     counter = 0
     num = preds[0] 
-      
+    freq = []
     #first most occuring  
     for j in range(0,3):
       counter = 0
@@ -71,7 +71,7 @@ def prediction(t,h):
       for i in preds: 
           curr_frequency = preds.count(i) 
           if(curr_frequency> counter): 
-              runner_up = num
+              #runner_up = num
               counter = curr_frequency 
               num = i
     
@@ -90,8 +90,20 @@ def prediction(t,h):
           freq[2]=freq[0]
           break
 
-    return freq[0],freq[1],freq[2] 
+    freq = Remove(freq)
+    return freq
 
-result=prediction(19,74)
-print("Most frequent: ", result[0], "\nSecond most frequent: ",result[1],"\nThird: ",result[2])
+#remove duplicate elements 
+def Remove(duplicate): 
+	final_list = [] 
+	for num in duplicate: 
+		if num not in final_list: 
+			final_list.append(num) 
+	return final_list 
+
+
+
+result=prediction(27,84)
+for i in result:
+  print(i)
     
