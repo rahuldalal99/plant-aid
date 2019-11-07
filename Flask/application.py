@@ -47,7 +47,10 @@ def login():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     user_rec ={}
-    if not session.get('user'):   # if user is logged in redirect to index.html
+    try:
+        session.get("user")
+
+       # if user is logged in redirect to index.html
         if request.method == 'POST':
             session.pop('user', None)
             session['user'] = request.form["email_id"]
@@ -60,6 +63,7 @@ def signup():
             users.insert_one(user_rec)
             session['user'] = user_rec['name']
             return redirect(url_for('upload'))
+    except:
         return render_template("signup.html")
     return redirect(url_for('index'))
 
@@ -70,7 +74,7 @@ def upload():
     if request.method == "POST":
         filesize = request.cookies.get('filesize')
         file = request.files["file"]
-        print(f"Filesize: {filesize}")
+        #print(f"Filesize: {filesize}")
 
         #print("File uploaded")
         print(file)
