@@ -2,16 +2,10 @@ from flask import Flask,render_template, request, make_response, jsonify,session
 from werkzeug.utils import secure_filename
 from werkzeug.exceptions import default_exceptions, HTTPException
 import os
-from preventor import *
-from API import *
 from pymongo import MongoClient
 import requests
-kn = pickle.load(open("pfiles/KNN.pkl","rb"))
-svm = pickle.load(open("pfiles/SVM.pkl","rb"))
-dt = pickle.load(open("pfiles/DT.pkl","rb"))
-rf = pickle.load(open("pfiles/RF.pkl","rb"))
-lr = pickle.load(open("pfiles/LR.pkl","rb"))
-gnb = pickle.load(open("pfiles/GNB.pkl","rb"))
+import json
+
 
 mongo = MongoClient()
 db = mongo.medivine
@@ -20,13 +14,14 @@ users=db.users
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24) #secret key for sessions
-SAVEDIR="/root/plant-aid/Flask/uploads/"
+SAVEDIR="/root/plant-aid/Flask/static/"
 
 app.config['UPLOADED_FILES_DEST'] = '/c/Users/Rahul/Downloads/flask_app/uploads'
 
 @app.route("/")
 def index():
     return  render_template("index.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -86,10 +81,12 @@ def upload():
         #print("File uploaded")
         #print(file)
         #file.save(os.path.join(app.config['UPLOADED_FILES_DEST'], file.filename))
-        path="IMG"+str(len(os.listdir(SAVEDIR)))+".jpg"
+        path="IMG"+str(len(os.listdir(SAVEDIR))+1)+".jpg"
         print(path)
         pathIMG=os.path.join(SAVEDIR, path)
         file.save(pathIMG)
+        print(pathIMG)
+        print("PATH^^")
         #path=urlencode(path)
         #print("http://medivine.me:5000?img_path="+path)
         #file.save(pathIMG)
@@ -102,12 +99,19 @@ def upload():
         print(path)
         r=requests.post('http://medivine.me:5000/predict',data={'path':path})
         print(r.text)
+        data = json.loads(r.text)
+        key_max = max(data.keys(), key= (lambda k:data[k]))
+        print(key_max)
+        key_max =  key_max.split("_")
+        plant = key_max[1]
+        disease = key_max[4]
+        print(plant)
+        print(disease)
         #res = make_response(jsonify({"message": "File uploaded"}), 200)
-        res = make_response(jsonify({"message": "File uploaded"}), 200)
-        
+        res = make_response(jsonify({"message": "File uploaded","path":path,"plant":plant,"disease":disease}), 200)
         return res
 
-    return render_template("upload.html")
+    return render_template("upload1.html")
 
 @app.route('/logout')
 def logout():
