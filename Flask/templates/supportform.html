@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+	<div class="row justify-content-center">
+		 <div class="col-md-6 justify-content-center">
+			<h1 style="padding-top:60px;">Support Form</h1>	
+			<form method="POST">
+					<div class="container">
+		             		<div class="form-group">
+		                    		<label for="DiseaseTitle">Disease Title</label>
+		                    		<input type="text"  name="disease_title" class="form-control" id="disease_title" placeholder="Disease Title">
+		            		</div>
+		             		<div class="form-group">
+		                    		<label for="causes">Causes</label>
+		                    		<input type="text"  name="causes" class="form-control" id="causes" placeholder="Causes">
+		            		</div>
+		            		<div class="form-group">
+		                    		<label for="cure">Cure</label>
+		                    		<input type="text"  name="cure" class="form-control" id="cure" placeholder="Cure">
+		            		</div>
+		            		 <div class="form-group">
+    								<label for="Text area">Message</label>
+    								<textarea class="form-control" id="exampleFormControlTextarea1" name="text" rows="3"></textarea>
+  							</div>
+		            <button type="submit" name="Submit" class="btn btn-outline-dark">Submit</button>
+			</form>
+		</div>
+	</form>
+</div>
+</div>
+</div>
+{% endblock %}
