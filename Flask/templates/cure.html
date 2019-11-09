@@ -8,13 +8,39 @@
 -->
 
 
-<div id ="d_symptoms" class = "jumbotron row-justify-center">
-    {{data["disease"][disease]["disease_symptoms"]}}
+<div class='container'>
+			<div class='row justify-content-center'>
+				<h1 style='padding:25px;'>Cure</h1>
+			</div>
+			</div>
 </div>
-<div id = "d_causes" class = "jumbotron row-justify-center">
-    {{data["disease"][disease]["disease_causes"]}}
+
+<div class='container'>
+			<div class='row justify-content-center'>
+				<div class='col-md-6  text-center'>
+					<h5>Plant: </h5>
+				</div>
+				<div class='col-md-6 text-center'>
+				<h5>Disease:</h5>
+				</div>
+			</div>
+			<hr>
 </div>
-<div id = "d_cure" class = "jumbotron row-justify-center">
-    {{data["plant_disease_cure"][plant][disease]["cure"]}}
+
+<div id ="d_symptoms" class = "jumbotron">
+    	 {{data["disease"][disease]["disease_symptoms"]}}
+</div>
+
+<div id = "d_causes" class = "jumbotron">
+    	{{data["disease"][disease]["disease_causes"]}}
+</div>
+
+
+<div id = "d_cure" class = "jumbotron">
+   	 	{{data["plant_disease_cure"][plant][disease]["cure"]}}
+</div>
+	
+
+	</div>
 </div>
 {% endblock %}
