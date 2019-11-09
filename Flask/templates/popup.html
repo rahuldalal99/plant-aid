@@ -29,8 +29,27 @@
 </div>
 
 <script>
-$(document).ready(function () {
-   document.getElementById("butt").click();
+  
+$(document).ready(fu(nction () {
+  
+   document.getElem
+                     entById("butt").click();
+function makeDisp(resp){
+		var href=" ";
+	for(i=0;i<resp.length;i++){ 
+		var plant=resp[i]["plant"];
+		var disease=resp[i]["disease"];
+	    var text=("Plant:"+plant+" Disease:"+disease);
+		var link=(encodeURI("http://medivine.me/cure/"+plant+"/"+disease))
+		href+="<br><a href="+link+">"+text+"</a>"
+	}
+	document.getElementById("link_1").innerHTML=href
+}
+  
+  //on response
+  resp=JSON.parse(response.text)
+  makeDisp(resp);
+  //end on response
 });
 
 
