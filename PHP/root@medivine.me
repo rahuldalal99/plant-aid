@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to get your coordinates.</p>
+
+<!--button onclick="getLocation()">Try It</button-->
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+ // x.innerHTML = "Latitude: " + position.coords.latitude + 
+  //"<br>Longitude: " + position.coords.longitude;
+  var lat = position.coords.latitude;
+  var lon = position.coords.longitude
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", ("http://localhost:5000/prev/"+lat+"/"+lon+"/"), true);
+  xhttp.setRequestHeader('Access-Control-Allow-Credentials' , true)
+    xhttp.setRequestHeader('Access-Control-Allow-Origin','http://medivine.me')
+    xhttp.setRequestHeader('Access-Control-Allow-Methods','GET')
+    xhttp.setRequestHeader('Access-Control-Allow-Headers','application/json')
+  
+  xhttp.send();
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    document.getElementById("demo").innerHTML = this.responseText;
+    alert(this.responseText)
+  }
+
+};
+}
+
+getLocation();
+</script>
+
+</body>
+</html>

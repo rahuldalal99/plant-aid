@@ -1,6 +1,6 @@
 from __future__ import print_function
 import pickle
-import base64
+#import base64
 from  email.mime.text import *
 from email.mime.image import *
 from email.mime.multipart import MIMEMultipart
@@ -73,7 +73,8 @@ def mail(to="cuisineplanner@gmail.com",msg="Support Request",img='tcurl.jpg',use
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
-    body='For user '+user+', predicted disease is' +disease+'\n Please find attached email below'
+    link="http://medivine.me/support?user_id="+user+"&img="+img+"&disease="+disease
+    body='For user '+user+', predicted disease is' +disease+'\n Please find attached email below\n\nSupport Link: '+link
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first

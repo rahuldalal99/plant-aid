@@ -1,3 +1,4 @@
+#10.99.7.203
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -11,9 +12,11 @@ import numpy as np
 from flask import send_from_directory,jsonify
 import io
 #import urllib
+import cv2
 import os
 import tensorflow_hub as hub
 import tensorflow as tf
+from tensorflow.python.keras.backend import set_session
 from mailer import *
 #from rq import Queue
 #from worker import conmodel
@@ -46,36 +49,77 @@ def loadmodel():
     return reloaded
 
 K.clear_session()
+
+sess = tf.Session()
+graph = tf.get_default_graph()
+set_session(sess)   
 model=loadmodel()
 model._make_predict_function()
-graph = tf.get_default_graph()
-
 print("[!] model loaded")
 @app.route('/predict',methods=["GET","POST"])
 def prediction():
-        try:
-                global model
-                global graph
-                test_image= request.files["image"].read()
-                test_image = Image.open(io.BytesIO(test_image))
-                if test_image.mode!="RGB":
-                    test_image=test_image.convert("RGB")
-                test_image=test_image.resize((224, 224))
-                test_image = image.img_to_array(test_image)
-                test_image=np.array(test_image,dtype=np.float16)/255.0
-                test_image = np.expand_dims(test_image, axis = 0)
-                with graph.as_default():
-                    result = model.predict(test_image)
-                cl=[classes[i] for i in range(0,15)]
-                dd=dict(zip(cl,result.tolist()[0]))
-                dd=sorted(dd.items(), key=lambda kv: kv[1],reverse=True)[0:4]
-                jdict={}
-                for i in dd:
-                        jdict[i[0]]=i[1]
-                return (jsonify(jdict))
-        except Exception as e:
+    global model
+    global sess
+    global graph
+    # flag=True
+    # try:
+    #     # path=requests.args.get('path')
+    #     # print("OK")
+    #     # if path:
+    #     #     flag=True
+    #     path="tcurl.jpg"
+    #     img=cv2.imread(path)
+    #     test_image=img.resize((224, 224))
+    #     test_image = image.img_to_array(test_image)
+    #     test_image=np.array(test_image,dtype=np.float16)/255.0
+    #     test_image = np.expand_dims(test_image, axis = 0)
+    #     with graph.as_default():
+    #         set_session(sess)
+    #         result = model.predict(test_image)
+    #     cl=[classes[i] for i in range(0,15)]
+    #     dd=dict(zip(cl,result.tolist()[0]))
+    #     dd=sorted(dd.items(), key=lambda kv: kv[1],reverse=True)[0:4]
+    #     jdict={}
+    #     for i in dd:
+    #         jdict[i[0]]=i[1]
+    #     return (jsonify(jdict))
+    # except Exception as e:
+    #     if not flag:  
+    #         print("NOK")  
+    #         pass
+    #     else:
+    #         return (jsonify({'error':'Did not detect','info':str(e)}))
+
+               
+    
+    try:
+        #global model
+        #global sess
+        #global graph
+        
+        test_image= request.files["image"].read()
+        test_image = Image.open(io.BytesIO(test_image))
+        if test_image.mode!="RGB":
+            test_image=test_image.convert("RGB")
+        test_image=test_image.resize((224, 224))
+        test_image = image.img_to_array(test_image)
+        test_image=np.array(test_image,dtype=np.float16)/255.0
+        test_image = np.expand_dims(test_image, axis = 0)
+        with graph.as_default():
+            set_session(sess)
+            result = model.predict(test_image)
+        cl=[classes[i] for i in range(0,15)]
+        dd=dict(zip(cl,result.tolist()[0]))
+        dd=sorted(dd.items(), key=lambda kv: kv[1],reverse=True)[0:4]
+        jdict={}
+        for i in dd:
+                jdict[i[0]]=i[1]
+        return (jsonify(jdict))
+    except Exception as e:
                 print(e)
                 return (jsonify({'error':'Did not detect','info':str(e)}))
+
+#@app.route()
 
 @app.route('/send',methods=["GET","POST"])
 def send():
@@ -86,11 +130,11 @@ def send():
         mail(to=request.form['to'],img=img,disease=dis,user=user)
         return "{'status':'200'}"
     except Exception as e:
-        return str(e)
+        return jsonify({'error':str(e)})
 
 @app.route('/',methods=["GET","POST"])
 def home():
         return("home")
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=6000,debug=True)
+    app.run(host='0.0.0.0',port=int(sys.argv[1]),debug=True)
