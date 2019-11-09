@@ -2,9 +2,16 @@ from flask import Flask,render_template, request, make_response, jsonify,session
 from werkzeug.utils import secure_filename
 from werkzeug.exceptions import default_exceptions, HTTPException
 import os
+from preventor import *
+from API import *
 from pymongo import MongoClient
-
-
+import requests
+kn = pickle.load(open("pfiles/KNN.pkl","rb"))
+svm = pickle.load(open("pfiles/SVM.pkl","rb"))
+dt = pickle.load(open("pfiles/DT.pkl","rb"))
+rf = pickle.load(open("pfiles/RF.pkl","rb"))
+lr = pickle.load(open("pfiles/LR.pkl","rb"))
+gnb = pickle.load(open("pfiles/GNB.pkl","rb"))
 
 mongo = MongoClient()
 db = mongo.medivine
@@ -13,13 +20,13 @@ users=db.users
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24) #secret key for sessions
+SAVEDIR="/root/plant-aid/Flask/uploads/"
 
 app.config['UPLOADED_FILES_DEST'] = '/c/Users/Rahul/Downloads/flask_app/uploads'
 
 @app.route("/")
 def index():
     return  render_template("index.html")
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -75,14 +82,29 @@ def upload():
         filesize = request.cookies.get('filesize')
         file = request.files["file"]
         #print(f"Filesize: {filesize}")
-
+        
         #print("File uploaded")
-        print(file)
+        #print(file)
         #file.save(os.path.join(app.config['UPLOADED_FILES_DEST'], file.filename))
-        file.save(secure_filename(file.filename))
+        path="IMG"+str(len(os.listdir(SAVEDIR)))+".jpg"
+        print(path)
+        pathIMG=os.path.join(SAVEDIR, path)
+        file.save(pathIMG)
+        #path=urlencode(path)
+        #print("http://medivine.me:5000?img_path="+path)
+        #file.save(pathIMG)
+        #print(pathIMG)
+        #F={'image':open(pathIMG,'rb').read()}
+        #print(F)
+        #print(path in os.listdir('uploads/'))
+        #r=requests.post("http://medivine.me:5000/predict",files=F)
+        #print(r.json())
+        print(path)
+        r=requests.post('http://medivine.me:5000/predict',data={'path':path})
+        print(r.text)
         #res = make_response(jsonify({"message": "File uploaded"}), 200)
         res = make_response(jsonify({"message": "File uploaded"}), 200)
-
+        
         return res
 
     return render_template("upload.html")
@@ -93,4 +115,4 @@ def logout():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,host="0.0.0.0",port=80)
