@@ -113,6 +113,36 @@ def upload():
 
     return render_template("upload1.html")
 
+@app.route('/sup')
+def sup():
+    return render_template("supportform.html")
+
+@app.route('/support',methods=["POST"])
+def insert():
+    try:
+        if 1:#request.method == "POST":
+            info = request.form
+            rec = {}
+            #u_id = info['user_id']
+            #info.pop('user_id',None)
+            #del info['user_id']
+            print("************")
+            #info = json.dumps(info)
+            print(request.form)
+            rec['user_id'] = info['user_id']
+            rec['disease_title'] = info['disease_title']
+            rec['causes']=info['causes']
+            rec['cure']=info['cure']
+            rec['text']=info['text']
+            db.support.insert_one(rec)
+            print(rec)
+            return render_template("index.html")
+
+    except Exception as e:
+        print(e)
+        return render_template("index.html")
+
+
 @app.route('/logout')
 def logout():
     session.pop('user', None)
