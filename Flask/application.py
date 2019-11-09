@@ -113,6 +113,12 @@ def upload():
 
     return render_template("upload1.html")
 
+@app.route('/cure/<plant>/<disease>',methods = ["POST","GET"])
+def cure(plant, disease):
+    print(plant)
+    data = json.load(open("cure.json", "r", encoding="utf-8"))
+    return render_template("cure.html",plant=plant, disease=disease,data = data)
+
 @app.route('/sup')
 def sup():
     return render_template("supportform.html")
