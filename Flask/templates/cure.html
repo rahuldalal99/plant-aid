@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<!--
+<div id = "image" class ="jumbotron row-justify-center">
+    <img src={{path}}>
+</div>
+-->
+
+
+<div id ="d_symptoms" class = "jumbotron row-justify-center">
+    {{data["disease"][disease]["disease_symptoms"]}}
+</div>
+<div id = "d_causes" class = "jumbotron row-justify-center">
+    {{data["disease"][disease]["disease_causes"]}}
+</div>
+<div id = "d_cure" class = "jumbotron row-justify-center">
+    {{data["plant_disease_cure"][plant][disease]["cure"]}}
+</div>
+{% endblock %}
