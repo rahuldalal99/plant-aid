@@ -174,11 +174,12 @@ def login():
                 log_user = users.find_one({'email_id': email})
                 if hash(pwd) == log_user['passwd']:
                     session['user'] = log_user['name']
-                    return redirect(url_for('upload')) # redirect to upload after login
-                else :
+                    #return redirect(url_for('payment')) # redirect to upload after login
                     resp=make_response(redirect(url_for('login')))
                     resp.set_cookie("SIGNED_IN",email)
                     return resp
+                else :
+                    return render_template("login.html")
             except:
                 print("user doesn't exist")
                 resp=make_response(render_template("login.html"))
@@ -206,7 +207,7 @@ def signup():
             user_rec['name'] = name
             users.insert_one(user_rec)
             session['user'] = user_rec['name']
-            return redirect(url_for('upload'))
+            return redirect(url_for('login'))
     except:
         return render_template("signup.html")
     return redirect(url_for('index'))
