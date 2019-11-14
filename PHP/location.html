@@ -1,0 +1,28 @@
+<html>
+<script>
+var data = null;
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    J=JSON.parse(this.responseText);
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", ("http://localhost:5000/prev/"+J.latitude+"/"+J.longitude+"/"), true);
+    xhttp.send();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo").innerHTML = this.responseText;
+        alert(this.responseText)
+      }
+    }
+}
+});
+
+xhr.open("GET", "https://geo.p.rapidapi.com/");
+xhr.setRequestHeader("x-rapidapi-host", "geo.p.rapidapi.com");
+xhr.setRequestHeader("x-rapidapi-key", "e169a4fe04msh4afb825ab06053fp1dc5ddjsna23987d08d7a");
+
+xhr.send(data);
+</script>

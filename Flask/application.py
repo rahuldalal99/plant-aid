@@ -5,7 +5,17 @@ import os
 from pymongo import MongoClient
 import requests
 import json
+<<<<<<< HEAD
 import pickle
+=======
+>>>>>>> 7cdfab09e927a3349922dd47579ee46f70876f07
+
+kn = pickle.load(open("pfiles/KNN.pkl","rb"))
+svm = pickle.load(open("pfiles/SVM.pkl","rb"))
+dt = pickle.load(open("pfiles/DT.pkl","rb"))
+rf = pickle.load(open("pfiles/RF.pkl","rb"))
+lr = pickle.load(open("pfiles/LR.pkl","rb"))
+gnb = pickle.load(open("pfiles/GNB.pkl","rb"))
 
 kn = pickle.load(open("pfiles/KNN.pkl","rb"))
 svm = pickle.load(open("pfiles/SVM.pkl","rb"))
@@ -128,9 +138,14 @@ def Remove(duplicate):
             final_list.append(num) 
     return final_list 
 
+<<<<<<< HEAD
 # @app.run('/opensr')
 # def opensr():
 #     return "<>"
+=======
+@app.run('/opensr')
+def opensr():
+>>>>>>> 7cdfab09e927a3349922dd47579ee46f70876f07
 
 
 @app.route('/sup')
@@ -175,11 +190,15 @@ def login():
                 log_user = users.find_one({'email_id': email})
                 if hash(pwd) == log_user['passwd']:
                     session['user'] = log_user['name']
-                    return redirect(url_for('upload')) # redirect to upload after login
+                    #return redirect(url_for('payment')) # redirect to upload after login
+                    resp=make_response(redirect(url_for('login')))
+                    resp.set_cookie("SIGNED_IN",email)
+                    return resp
                 else :
                     resp=make_response(redirect(url_for('login')))
                     resp.set_cookie("SIGNED_IN",email)
                     return resp
+                    #return render_template("login.html")
             except:
                 print("user doesn't exist")
                 resp=make_response(render_template("login.html"))
@@ -207,7 +226,7 @@ def signup():
             user_rec['name'] = name
             users.insert_one(user_rec)
             session['user'] = user_rec['name']
-            return redirect(url_for('upload'))
+            return redirect(url_for('login'))
     except:
         return render_template("signup.html")
     return redirect(url_for('index'))

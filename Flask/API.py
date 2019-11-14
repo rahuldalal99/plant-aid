@@ -28,7 +28,7 @@ def getWeather(lon,lat):
 	response=json.loads(response.text)
 	temp=response["main"]["temp"]
 	humid=response["main"]["humidity"]
-	return (temp,humid)
+	return temp,humid
 
 def translate(lang,text):
 	#Returns translated text, which is in devanagari script.
