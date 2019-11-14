@@ -1,0 +1,50 @@
+<annotation>
+	<folder>Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot</folder>
+	<filename>b3a3ae35-860d-4d65-af43-faa13c3d2834___RS_GLSp 9272.JPG</filename>
+	<path>D:\project\dataset-images-plantAid\Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot\b3a3ae35-860d-4d65-af43-faa13c3d2834___RS_GLSp 9272.JPG</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>256</width>
+		<height>256</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>corn-(maize)-cercospora-leaf-spot-gray-leaf-spot</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>139</xmin>
+			<ymin>37</ymin>
+			<xmax>148</xmax>
+			<ymax>64</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>corn-(maize)-cercospora-leaf-spot-gray-leaf-spot</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>89</xmin>
+			<ymin>41</ymin>
+			<xmax>99</xmax>
+			<ymax>64</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>corn-(maize)-cercospora-leaf-spot-gray-leaf-spot</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>146</xmin>
+			<ymin>91</ymin>
+			<xmax>158</xmax>
+			<ymax>131</ymax>
+		</bndbox>
+	</object>
+</annotation>

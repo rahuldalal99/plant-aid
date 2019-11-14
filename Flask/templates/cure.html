@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<!--
+<div id = "image" class ="jumbotron row-justify-center">
+    <img src={{path}}>
+</div>
+-->
+
+
+<div class='container'>
+			<div class='row justify-content-center'>
+				<h1 style='padding:25px;'>Cure</h1>
+			</div>
+			</div>
+</div>
+
+<div class='container'>
+			<div class='row justify-content-center'>
+				<div class='col-md-6  text-center'>
+					<h5>Plant: {{plant}}</h5>
+				</div>
+				<div class='col-md-6 text-center'>
+				<h5>Disease:  {{disease}}</h5>
+				</div>
+			</div>
+			<hr>
+</div>
+
+<div id ="d_symptoms" class = "jumbotron">
+	<p> {{data["disease"][disease]["disease_symptoms"]}}</p>
+</div>
+
+<div id = "d_causes" class = "jumbotron">
+	<p>{{data["disease"][disease]["disease_causes"]}}</p>
+</div>
+
+
+<div id = "d_cure" class = "jumbotron">
+	<p>{{data["plant_disease_cure"][plant][disease]["cure"]}}</p>
+</div>
+	
+
+	</div>
+</div>
+<a href="/opensr">
+<button action="/opensr" class="btn btn-dark"> Get Support </button>
+</a>
+{% endblock %}

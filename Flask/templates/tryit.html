@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<!-- div class="container">
+	<div class="row justify-content-center">
+			<h2 style="padding-top:10px;"> Try it </h2><br>
+			<p>Start by uploading an image of infected plant</p>
+	</div>
+</div> -->
+
+<div class="container">
+	<div class="row justify-content-center">
+				<h1 style="padding-top:20px;opacity:0.75">Try it</h1>
+	</div>
+	<div class="row justify-content-center">
+					<h6><i>Start by selecting an image of infected plant</i></h6>
+	</div>
+	<hr>
+
+<div class="container" style="padding-top:20px;"> 
+<div class="row">
+	<div class="col-md-4 col-xs-1">
+		<a href="/cure/Grape/Esca"><img src="static/grape_esca.jpg" style="max-width:250px; max-height:250px;"></a> <br>
+	</div>
+	<div class="col-md-4 col-xs-1">
+		<a  href="/cure/Tomato/Mold"> <img src="static/tom_mold.jpg" style="max-width:250px; max-height:250px;"> <br></a>
+	</div>
+	<div class="col-md-4 col-xs-1">
+		<a href="/cure/Potato/Blight">	<img src="static/pot_bli.jpg" style="max-width:250px; max-height:250px;"> <br></a>
+	</div>
+</div>
+</div>
+
+<br>
+<br>
+
+
+
+
+<div class="container" style="padding-top:80px;">
+<div class="row">
+	<div class="col-md-4 col-xs-2">
+		<a href="/cure/Grape/Blight"><img src="static/grape_bli.jpg" style="max-width:250px; max-height:250px;"> <br></a>
+	</div>
+	<div class="col-md-4 col-xs-1">
+		<a href="/cure/Corn/Cercospora Leaf Spot" >	<img src="static/corn_cerco.jpg" style="max-width:250px; max-height:250px;"> <br></a>
+	</div>
+	<div class="col-md-4 col-xs-1">
+		<a href="/cure/Tomato/Blight">	<img src="static/tomato_bli.jpg" style="max-width:250px; max-height:250px;"> <br></a>
+	</div>
+</div>
+</div>
+
+ {% endblock %}

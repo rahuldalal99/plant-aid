@@ -35,7 +35,7 @@
         </div>
 
         <div id="alert_wrapper"></div>
-
+	<img id="image"  src="static/IMG24.jpg" class="d-none" style="max-width:150px;max-height:150px;" > 
       </div>
     </div>
   </div>
@@ -57,6 +57,9 @@
       // Get a reference to the file input element & input label
       var input = document.getElementById("file_input");
       var file_input_label = document.getElementById("file_input_label");
+
+
+      var image = document.getElementById("image");
 
       // Function to show alerts
       function show_alert(message, alert) {
@@ -145,7 +148,8 @@
 
           if (request.status == 200) {
 
-            show_alert(`${request.response.message}`, "success");
+            show_alert(`${request.response.message}`, "success");	
+	    //show_alert(`${request.response.path}`, "path");
 
           }
           else {
@@ -221,6 +225,8 @@
 
         // Reset the input placeholder
         file_input_label.innerText = "Select file";
+
+	 image.classList.remove("d-none");
 
       }
   </script>
