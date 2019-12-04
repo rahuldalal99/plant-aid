@@ -42,6 +42,7 @@ simplegeneric==0.8.1
 six==1.10.0
 terminado==0.6
 testpath==0.3.1
+tensorflow==1.15
 tornado==4.5.1
 traitlets==4.3.2
 urllib3==1.22
