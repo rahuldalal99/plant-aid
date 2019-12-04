@@ -1,0 +1,77 @@
+
+item {
+	id: 1
+	name: 'Leaf-blight-(Isariopsis-Leaf-Spot)'
+}
+item {
+	id: 2
+	name: 'Late-blight'
+}
+item {
+	id: 3
+	name: 'Black-rot'
+}
+item {
+	id: 4
+	name: 'Early-blight'
+}
+item {
+	id: 5
+	name: 'Cercospora-leaf-spot Gray-leaf-spot'
+}
+item {
+	id: 6
+	name: ' Early-blight'
+}
+item {
+	id: 7
+	name: ' Target-Spot'
+}
+item {
+	id: 8
+	name: ' Septoria-leaf-spot'
+}
+item {
+	id: 9
+	name: ' Spider-mites Two-spotted-spider-mite'
+}
+item {
+	id: 10
+	name: 'Northern-Leaf-Blight'
+}
+item {
+	id: 11
+	name: ' Bacterial-spot'
+}
+item {
+	id: 12
+	name: 'Esca-(Black-Measles)'
+}
+item {
+	id: 13
+	name: ' Leaf-Mold'
+}
+item {
+	id: 14
+	name: 'Late-blight'
+}
+item {
+	id: 15
+	name: 'Brown-spot-rice'
+}
+item {
+	id: 16
+	name: 'Leaf-smut-rice'
+}
+item {
+	id: 17
+	name: 'Bacterial-leaf-blight-rice'
+}
+item {
+	id: 17
+	name: 'bacterial-leaf-blight-rice'
+}
+item {
+	id: 18
+	name: 'Common-rust-'
+}

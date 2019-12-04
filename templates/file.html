@@ -1,0 +1,13 @@
+<html>
+	<audio autoplay>
+		{% if 2 in classes %}
+		<source src="{{ url_for('static',filename='500.mp3') }}">
+		{% endif %}
+		{% if 1 in classes %}
+		<source src="{{ url_for('static',filename='100.mp3') }}">
+		{% endif %}
+
+	</audio>
+	<img src="{{ url_for('static',filename=filename) }}">	
+</html>
+
