@@ -1,119 +1,99 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+package com.medivine;
+
+import java.io.*;
 import java.util.*;
-import com.google.gson.Gson;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+//import org.apache.commons.lang.ArrayUtils;
+@WebServlet("/voter")
+public class Voter extends HttpServlet{
+	GaussianNB GNB_clf;
+	RandomForestClassifier RF_clf;
+	DecisionTreeClassifier DT_clf;
+	SVC SVC_clf;
+	KNeighborsClassifier KNN_clf;
+	static double[][]vectors ;
+	//constructor
+	public Voter() {
+		String path = "F:\\Dev\\ml\\Porter\\";
+		try {
+		
+		GNB_clf = new GaussianNB(path+"GaussianNB.json");
+		RF_clf = new RandomForestClassifier(path+"RandomForest.json");
+		KNN_clf = new KNeighborsClassifier(path+"KNN.json");
+		DT_clf = new DecisionTreeClassifier(path+"DecisionTree.json");	
+		SVC_clf = new SVC(path+"SVC.json");
+		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean Check(int[] arr,int p ,int ind){
+		for(int i =0;i<arr.length;i++) {
+			if(p == arr[i]){
+				if(i==ind) {
+					continue;
+				}
+				else {
+				return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	ArrayList<Integer> vote(double[] features) {
+		int[] Pred = new int[5];
+		//int[] Preds =  new int[5];
+		//int Preds_ptr =1 ;
+		Pred[0] = GNB_clf.predict(features);
+		Pred[1] = RF_clf.predict(features);
+		Pred[2] = KNN_clf.predict(features);
+		Pred[3] = DT_clf.predict(features);
+		Pred[4] = SVC_clf.predict(features);
+		
+		ArrayList list = new ArrayList<Integer>();
+		//Preds[0]=Pred[0];
+		
+		for(int i =0;i<Pred.length;i++) {
+			if(list.contains(Pred[i])) {
+				continue;
+			}
+			else {
+				list.add(Pred[i]);
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Voter v = new Voter();
+		PrintWriter out = resp.getWriter();
+		ArrayList<Integer> predictions =  new ArrayList<Integer>();
+		double[] features= new double[2];
+		features[0]=24.0;
+		features[1] = 75.2;
+		predictions = v.vote(features);
+		for(int i: predictions)
+			out.write(i+" ");
+		
+	}
 
-class KNeighborsClassifier {
-
-    private class Classifier {
-        private int kNeighbors;
-        private int nClasses;
-        private double power;
-        private double[][] X;
-        private int[] y;
-    }
-
-    private class Sample {
-        Integer y;
-        Double dist;
-        private Sample(int y, double distance) {
-            this.y = y;
-            this.dist = distance;
-        }
-    }
-
-    private Classifier clf;
-    private int nTemplates;
-
-    public KNeighborsClassifier(String file) throws FileNotFoundException {
-        String jsonStr = new Scanner(new File(file)).useDelimiter("\\Z").next();
-        this.clf = new Gson().fromJson(jsonStr, Classifier.class);
-        this.nTemplates = this.clf.y.length;
-    }
-
-    private static double compute(double[] temp, double[] cand, double q) {
-        double dist = 0.;
-        double diff;
-        for (int i = 0, l = temp.length; i < l; i++) {
-            diff = Math.abs(temp[i] - cand[i]);
-            if (q==1) {
-                dist += diff;
-            } else if (q==2) {
-                dist += diff*diff;
-            } else if (q==Double.POSITIVE_INFINITY) {
-                if (diff > dist) {
-                    dist = diff;
-                }
-            } else {
-                dist += Math.pow(diff, q);
-            }
-        }
-        if (q==1 || q==Double.POSITIVE_INFINITY) {
-            return dist;
-        } else if (q==2) {
-            return Math.sqrt(dist);
-        } else {
-            return Math.pow(dist, 1. / q);
-        }
-    }
-
-    public int predict(double[] features) {
-        int classIdx = 0;
-        if (this.clf.kNeighbors == 1) {
-            double minDist = Double.POSITIVE_INFINITY;
-            double curDist;
-            for (int i = 0; i < this.nTemplates; i++) {
-                curDist = KNeighborsClassifier.compute(this.clf.X[i],
-                        features, this.clf.power);
-                if (curDist <= minDist) {
-                    minDist = curDist;
-                    classIdx = this.clf.y[i];
-                }
-            }
-        } else {
-            int[] classes = new int[this.clf.nClasses];
-            ArrayList<Sample> dists = new ArrayList<Sample>();
-            for (int i = 0; i < this.nTemplates; i++) {
-                double dist = KNeighborsClassifier.compute(
-                        this.clf.X[i], features, this.clf.power);
-                dists.add(new Sample(this.clf.y[i], dist));
-            }
-            Collections.sort(dists, new Comparator<Sample>() {
-                @Override
-                public int compare(Sample n1, Sample n2) {
-                    return n1.dist.compareTo(n2.dist);
-                }
-            });
-            for (Sample neighbor : dists.subList(0, this.clf.kNeighbors)) {
-                classes[neighbor.y]++;
-            }
-            for (int i = 0; i < this.clf.nClasses; i++) {
-                classIdx = classes[i] > classes[classIdx] ? i : classIdx;
-            }
-        }
-        return classIdx;
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        if (args.length > 0 && args[0].endsWith(".json")) {
-
-            // Features:
-            double[] features = new double[args.length-1];
-            for (int i = 1, l = args.length; i < l; i++) {
-                features[i - 1] = Double.parseDouble(args[i]);
-            }
-
-            // Parameters:
-            String modelData = args[0];
-
-            // Estimators:
-            KNeighborsClassifier clf = new KNeighborsClassifier(modelData);
-
-            // Prediction:
-            int prediction = clf.predict(features);
-            System.out.println(prediction);
-
-        }
-    }
+//	public static void main() throws IOException{
+//		Voter v = new Voter();
+//		ArrayList<Integer> predictions =  new ArrayList<Integer>();
+//		double[] features= new double[2];
+//		features[0]=24.0;
+//		features[1] = 75.2;
+//		predictions = v.vote(features);
+//		for(int i: predictions)
+//			predictions.get(i);
+//	}
 }
