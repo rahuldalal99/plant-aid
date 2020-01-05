@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... strings) {
             try {
-                //URL url = new URL("https://api.myjson.com/bins/ytbh8");
-                URL url = new URL("http://192.168.8.8:8080/medivine/cure?plant="+plantname+"&disease="+diseasename);
+                
+                URL url = new URL("http://medivine.me:8080/Medivine/cure?plant="+plantname+"&disease="+diseasename);
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
                 con.connect();
@@ -109,5 +109,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-
